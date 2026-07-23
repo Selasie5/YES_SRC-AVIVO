@@ -1,85 +1,176 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { StampStack } from "stampstack";
-import "stampstack/styles.css";
 import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { CaretRight } from "@phosphor-icons/react";
 
-const items = [
-  { id: "talent", label: "Talent & Workforce", bg: "from-amber-600 to-amber-800" },
-  { id: "comms", label: "Communications", bg: "from-emerald-600 to-emerald-800" },
-  { id: "bizdev", label: "Business Development", bg: "from-violet-600 to-violet-800" },
-  { id: "yebs", label: "YEBS Summit", bg: "from-blue-600 to-blue-800" },
-  { id: "energy", label: "Energy Sector", bg: "from-orange-500 to-orange-700" },
+/* 
+  Photo collage grid — 8 cells laid out in a mosaic pattern.
+  We reuse the available images; replace with real photos when ready.
+*/
+const collageImages = [
+  { src: "/hero-bg.png", alt: "Team presentation" },
+  { src: "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg", alt: "Collaboration" },
+  { src: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg", alt: "Teamwork" },
+  { src: "/home-office-users-attending-online-virtual-call-from-their-home.jpg", alt: "Virtual meeting" },
+  { src: "/hero-bg.png", alt: "Networking event" },
+  { src: "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg", alt: "Community" },
+  { src: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg", alt: "Youth empowerment" },
+  { src: "/home-office-users-attending-online-virtual-call-from-their-home.jpg", alt: "Energy sector" },
 ];
 
-const frameColors = ["#d97706", "#059669", "#7c3aed", "#2563eb", "#ea580c"];
-
 export default function AboutHero() {
-  const [focusIndex, setFocusIndex] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setFocusIndex((prev) => (prev + 1) % items.length);
-    }, 3000);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
-
   return (
-    <section className="w-full min-h-[80vh] flex flex-col lg:flex-row items-center gap-12 lg:gap-20 py-12 lg:py-0">
-      {/* Text Side */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-inter-tight)] tracking-tight leading-tight mb-6">
-          About Afrovivo
-        </h1>
-        <p className="text-base md:text-lg text-gray-600 font-[family-name:var(--font-inter-tight)] leading-relaxed max-w-xl mb-8">
+    <section className="flex flex-col items-center justify-center bg-white px-6 pt-40 pb-24 overflow-hidden text-center">
+      {/* Hero Text */}
+      <div className="max-w-3xl mx-auto flex flex-col items-center">
+        <motion.h1
+          initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+          whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-5xl md:text-5xl font-normal tracking-tight text-gray-900 font-[family-name:var(--font-inter-tight)]"
+        >
+          Bridging Talent, Capital &amp; Opportunity Across Africa&apos;s Energy Sector
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+          whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-sm md:text-base text-gray-600 leading-relaxed max-w-2xl mt-6"
+        >
           We connect industry, talent and opportunity across Africa&apos;s energy and natural resources sector — through workforce development, strategic communications, and business development.
-        </p>
-        <div className="flex flex-wrap gap-4">
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-wrap items-center justify-center gap-4 mt-8"
+        >
           <Link
             href="/contact"
-            className="bg-gray-900 text-white px-6 py-3 rounded text-sm font-semibold hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
+            className="bg-gray-900 text-white px-6 py-3 rounded text-sm font-semibold inline-flex items-center gap-2 hover:bg-gray-800 transition-colors"
           >
             Get in Touch
-            <CaretRight weight="bold" />
+            <CaretRight weight="bold" size={14} />
           </Link>
           <Link
             href="/services"
-            className="border border-gray-300 text-gray-700 px-6 py-3 rounded text-sm font-semibold hover:bg-gray-50 transition-colors inline-flex items-center gap-2"
+            className="bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded text-sm font-semibold hover:bg-gray-50 transition-colors"
           >
             Our Services
           </Link>
-        </div>
+        </motion.div>
       </div>
 
-      {/* StampStack Side */}
-      <div className="w-full lg:w-1/2 flex justify-center items-center">
-        <div className="w-full max-w-[500px]">
-          <StampStack
-            items={items}
-            initialIndex={0}
-            cardWidth={260}
-            onFocusChange={(i) => setFocusIndex(i)}
-            frameColor={(item) => {
-              const idx = items.findIndex((i) => i.id === item.id);
-              return frameColors[idx];
-            }}
-            renderStamp={(item) => (
-              <div
-                className={`w-full h-full bg-gradient-to-br ${item.bg} flex items-center justify-center p-6`}
-              >
-                <span className="text-white text-lg font-semibold font-[family-name:var(--font-inter-tight)] text-center leading-snug">
-                  {item.label}
-                </span>
-              </div>
-            )}
-          />
+      {/* Photo Collage Mosaic */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="mt-20 w-full max-w-[1200px] mx-auto"
+      >
+        {/*
+          Grid: 6 columns × 2 rows
+          Row 1: [small] [large-tall spanning 2 rows] [large-tall spanning 2 rows] [small] [small-wide spanning 2 cols]
+          Row 2: [small]                                                            [small] [small]
+        */}
+        <div className="grid grid-cols-6 grid-rows-2 gap-3 h-[420px]">
+          {/* Col 1, Row 1 — small top-left */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[0].src} alt={collageImages[0].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
+
+          {/* Col 2, Row 1–2 — tall */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="col-span-1 row-span-2 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[1].src} alt={collageImages[1].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
+
+          {/* Col 3–4, Row 1–2 — large center (spanning 2 cols, 2 rows) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[2].src} alt={collageImages[2].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
+
+          {/* Col 5, Row 1 — small */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[3].src} alt={collageImages[3].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
+
+          {/* Col 6, Row 1 — small */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[4].src} alt={collageImages[4].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
+
+          {/* Col 1, Row 2 — small bottom-left */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[5].src} alt={collageImages[5].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
+
+          {/* Col 5, Row 2 — small */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.55 }}
+            className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[6].src} alt={collageImages[6].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
+
+          {/* Col 6, Row 2 — small */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden"
+          >
+            <Image src={collageImages[7].src} alt={collageImages[7].alt} fill className="object-cover hover:scale-105 transition-transform duration-500" />
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
