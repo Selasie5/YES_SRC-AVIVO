@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CaretRight, X } from "@phosphor-icons/react";
+import { CaretRight, X, List } from "@phosphor-icons/react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ export default function Navbar() {
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (!isHome) {
@@ -19,7 +20,7 @@ export default function Navbar() {
     } else if (window.scrollY <= 20) {
       setIsScrolled(false);
     }
-  }, []); // run once on mount
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +43,14 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, isHome]);
+
+  const navLinks = [
+    { href: "/#services", label: "Services" },
+    { href: "/#yebs", label: "YEBS" },
+    { href: "/#why-us", label: "Why Afrovivo" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   return (
     <>
@@ -87,44 +95,23 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Center: Nav Links */}
+            {/* Center: Nav Links (Desktop) */}
             <nav className="hidden md:flex items-center justify-center gap-8">
-              <Link
-                href="/#services"
-                className={`text-sm font-medium transition-colors ${
-                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                }`}
-              >
-                Services
-              </Link>
-              <Link
-                href="/#yebs"
-                className={`text-sm font-medium transition-colors ${
-                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                }`}
-              >
-                YEBS
-              </Link>
-              <Link
-                href="/#why-us"
-                className={`text-sm font-medium transition-colors ${
-                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                }`}
-              >
-                Why Afrovivo
-              </Link>
-              <Link
-                href="/contact"
-                className={`text-sm font-medium transition-colors ${
-                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                }`}
-              >
-                Contact
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors ${
+                    isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </nav>
 
-            {/* Right: CTA Button */}
-            <div className="justify-self-end">
+            {/* Right: CTA Button + Mobile Menu Toggle */}
+            <div className="flex items-center gap-3 justify-self-end">
               <Link
                 href="/contact"
                 className={`px-6 py-2.5 rounded text-sm font-semibold transition-all ${
@@ -135,10 +122,42 @@ export default function Navbar() {
               >
                 Get Started
               </Link>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className={`md:hidden p-2 transition-colors ${isScrolled ? "text-gray-900" : "text-white"}`}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <List size={24} />}
+              </button>
             </div>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-white pt-[120px] md:hidden">
+          <nav className="flex flex-col items-center gap-8 px-6 py-12">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-2xl font-medium text-gray-900 hover:text-gray-600 transition-colors font-[family-name:var(--font-inter-tight)]"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mt-4 bg-gray-900 text-white px-8 py-3 rounded text-sm font-semibold hover:bg-gray-800 transition-colors"
+            >
+              Get Started
+            </Link>
+          </nav>
+        </div>
+      )}
     </>
   );
 }
