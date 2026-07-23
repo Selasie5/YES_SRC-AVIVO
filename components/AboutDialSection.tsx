@@ -72,7 +72,7 @@ export default function AboutDialSection() {
                 onClick={() => handleDialClick(idx)}
                 className="text-left group relative"
               >
-                <span className={`block text-4xl md:text-5xl font-medium tracking-tight transition-all duration-500 font-[family-name:var(--font-inter-tight)] ${
+                <span className={`block text-3xl md:text-5xl font-medium tracking-tight transition-all duration-500 font-[family-name:var(--font-inter-tight)] ${
                   activeIndex === idx ? "text-gray-900 translate-x-4" : "text-gray-300 hover:text-gray-500"
                 }`}>
                   {sec.title}

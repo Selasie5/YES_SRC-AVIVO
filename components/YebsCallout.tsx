@@ -72,51 +72,52 @@ export default function YebsCallout() {
     >
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-      {/* Top: Location */}
-      <div className="absolute top-8 left-8 md:top-12 md:left-12 z-10 flex items-center gap-2">
+      {/* Top: Location & Date */}
+      <div className="absolute top-8 left-6 right-6 md:left-12 md:right-12 z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={isSnapped ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-center gap-2"
         >
-          <MapPin size={16} weight="light" className="text-white" />
+          <MapPin size={14} weight="light" className="text-white shrink-0" />
+          <motion.span
+            initial={{ opacity: 0, y: -15 }}
+            animate={isSnapped ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            className="font-light font-[family-name:var(--font-inter-tight)] text-xs md:text-sm tracking-wide"
+          >
+            ISSER Conference Center, Accra
+          </motion.span>
         </motion.div>
-        <motion.span
-          initial={{ opacity: 0, y: -15 }}
-          animate={isSnapped ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-          className="font-light font-[family-name:var(--font-inter-tight)] text-xs md:text-sm tracking-wide"
-        >
-          ISSER Conference Center, Accra
-        </motion.span>
-      </div>
 
-      {/* Top: Date & Countdown */}
-      <div className="absolute top-8 right-8 md:top-12 md:right-12 z-10 flex items-center gap-2">
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={isSnapped ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+          className="flex items-center gap-2"
         >
-          <CalendarBlank size={16} weight="light" className="text-white" />
+          <CalendarBlank size={14} weight="light" className="text-white shrink-0" />
+          <motion.span
+            initial={{ opacity: 0, y: -15 }}
+            animate={isSnapped ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+            className="font-light font-[family-name:var(--font-inter-tight)] text-xs md:text-sm tracking-wide"
+          >
+            14 August 2026
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, y: -15 }}
+            animate={isSnapped ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
+            className="font-[family-name:var(--font-inter-tight)] text-xs md:text-sm font-light tracking-widest text-white/90"
+          >
+            ({String(timeLeft.days).padStart(2, "0")}D:{String(timeLeft.hours).padStart(2, "0")}H:{String(timeLeft.minutes).padStart(2, "0")}M:{String(timeLeft.seconds).padStart(2, "0")}S)
+          </motion.span>
         </motion.div>
-        <motion.span
-          initial={{ opacity: 0, y: -15 }}
-          animate={isSnapped ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
-          className="font-light font-[family-name:var(--font-inter-tight)] text-xs md:text-sm tracking-wide"
-        >
-          14 August 2026
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0, y: -15 }}
-          animate={isSnapped ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-          className="font-[family-name:var(--font-inter-tight)] text-xs md:text-sm font-light tracking-widest text-white/90"
-        >
-          ({String(timeLeft.days).padStart(2, "0")}D:{String(timeLeft.hours).padStart(2, "0")}H:{String(timeLeft.minutes).padStart(2, "0")}M:{String(timeLeft.seconds).padStart(2, "0")}S)
-        </motion.span>
       </div>
+
+      {/* Remove old position divs */}
 
       {/* Bottom: Heading, Subtext & Buttons */}
       <div className="relative z-10 w-full h-full flex flex-col justify-end px-8 md:px-12 lg:px-24 pb-16 md:pb-24">

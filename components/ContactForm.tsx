@@ -48,7 +48,7 @@ export default function ContactForm() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-10"
             >
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex items-start gap-3">
                   <EnvelopeSimple size={20} weight="bold" className="text-gray-400 mt-0.5 shrink-0" />
                   <div>

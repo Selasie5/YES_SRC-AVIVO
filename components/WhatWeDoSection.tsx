@@ -55,7 +55,7 @@ export default function WhatWeDoSection() {
               hoveredIndex === null ? "flex-1" : ""
             }`}
           >
-            <div className="h-[500px]">
+            <div className="h-[300px] md:h-[500px]">
               <ServiceCard
                 title={service.title}
                 description={service.description}
