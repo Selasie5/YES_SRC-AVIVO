@@ -8,7 +8,7 @@ import { CaretRight, X } from "@phosphor-icons/react";
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(pathname !== "/");
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
@@ -19,7 +19,7 @@ export default function Navbar() {
     } else if (window.scrollY <= 20) {
       setIsScrolled(false);
     }
-  }, [isHome]);
+  }, []); // run once on mount
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +27,7 @@ export default function Navbar() {
 
       if (currentScrollY > 20) {
         setIsScrolled(true);
-      } else {
+      } else if (isHome) {
         setIsScrolled(false);
       }
 
