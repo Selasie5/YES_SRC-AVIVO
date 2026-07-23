@@ -22,7 +22,7 @@ const collageImages = [
 
 export default function AboutHero() {
   return (
-    <section className="flex flex-col items-center justify-center bg-white px-6 pt-40 pb-24 overflow-hidden text-center">
+    <section className="flex flex-col items-center justify-center bg-white px-6 pt-48 pb-24 overflow-hidden text-center">
       {/* Hero Text */}
       <div className="max-w-3xl mx-auto flex flex-col items-center">
         <motion.h1
