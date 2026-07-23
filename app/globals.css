@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter-tight);
+  --color-primary: #eab308;
+  --color-secondary: #78350f;
+}
+
+html {
+  scroll-snap-type: y proximity;
+}
+
+body {
+  font-family: var(--font-sans);
+}
