@@ -79,51 +79,52 @@ export default function Navbar() {
         <div className={`w-full transition-colors duration-300 ${
           isScrolled ? "bg-white text-black border-b border-gray-200" : "bg-transparent text-white"
         }`}>
-          <div className="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between">
-            <div className="flex items-center gap-12">
-              <Link href="/" className="flex items-center gap-2">
-                <div className={`font-bold text-2xl tracking-tight font-[family-name:var(--font-inter-tight)] ${isScrolled ? "text-black" : "text-white"}`}>
-                  Afrovivo
-                </div>
+          <div className="max-w-[1600px] mx-auto px-6 h-20 grid grid-cols-3 items-center">
+            {/* Left: Logo */}
+            <Link href="/" className="flex items-center gap-2 justify-self-start">
+              <div className={`font-bold text-2xl tracking-tight font-[family-name:var(--font-inter-tight)] ${isScrolled ? "text-black" : "text-white"}`}>
+                Afrovivo
+              </div>
+            </Link>
+
+            {/* Center: Nav Links */}
+            <nav className="hidden md:flex items-center justify-center gap-8">
+              <Link
+                href="/#services"
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
+                }`}
+              >
+                Services
               </Link>
+              <Link
+                href="/#yebs"
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
+                }`}
+              >
+                YEBS
+              </Link>
+              <Link
+                href="/#why-us"
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
+                }`}
+              >
+                Why Afrovivo
+              </Link>
+              <Link
+                href="/contact"
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
+                }`}
+              >
+                Contact
+              </Link>
+            </nav>
 
-              <nav className="hidden md:flex items-center gap-8">
-                <Link
-                  href="/#services"
-                  className={`text-sm font-medium transition-colors ${
-                    isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                  }`}
-                >
-                  Services
-                </Link>
-                <Link
-                  href="/#yebs"
-                  className={`text-sm font-medium transition-colors ${
-                    isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                  }`}
-                >
-                  YEBS
-                </Link>
-                <Link
-                  href="/#why-us"
-                  className={`text-sm font-medium transition-colors ${
-                    isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                  }`}
-                >
-                  Why Afrovivo
-                </Link>
-                <Link
-                  href="/contact"
-                  className={`text-sm font-medium transition-colors ${
-                    isScrolled ? "text-gray-500 hover:text-black" : "text-white/80 hover:text-white"
-                  }`}
-                >
-                  Contact
-                </Link>
-              </nav>
-            </div>
-
-            <div>
+            {/* Right: CTA Button */}
+            <div className="justify-self-end">
               <Link
                 href="/contact"
                 className={`px-6 py-2.5 rounded text-sm font-semibold transition-all ${
