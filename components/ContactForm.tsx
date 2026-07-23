@@ -18,7 +18,7 @@ export default function ContactForm() {
   const [selectedHelp, setSelectedHelp] = useState<string | null>(null);
 
   return (
-    <section className="min-h-screen bg-white px-6 pt-40 pb-24">
+    <section className="min-h-screen bg-white px-6 pt-48 pb-24">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
 
         {/* ──────── Left Column ──────── */}
