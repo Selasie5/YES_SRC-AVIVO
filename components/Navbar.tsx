@@ -87,16 +87,16 @@ export default function Navbar() {
         <div className={`w-full transition-colors duration-300 ${
           isScrolled ? "bg-white text-black border-b border-gray-200" : "bg-transparent text-white"
         }`}>
-          <div className="max-w-[1600px] mx-auto px-6 h-20 grid grid-cols-3 items-center">
+          <div className={`max-w-[1600px] mx-auto px-6 h-20 ${isScrolled ? "grid grid-cols-3 items-center" : "flex items-center justify-between"}`}>
             {/* Left: Logo */}
-            <Link href="/" className="flex items-center gap-2 justify-self-start">
+            <Link href="/" className="flex items-center gap-2">
               <div className={`font-bold text-2xl tracking-tight font-[family-name:var(--font-inter-tight)] ${isScrolled ? "text-black" : "text-white"}`}>
                 Afrovivo
               </div>
             </Link>
 
-            {/* Center: Nav Links (Desktop) */}
-            <nav className="hidden md:flex items-center justify-center gap-8">
+            {/* Nav Links */}
+            <nav className={`hidden md:flex items-center gap-8 ${isScrolled ? "justify-center" : "ml-12"}`}>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -111,7 +111,7 @@ export default function Navbar() {
             </nav>
 
             {/* Right: CTA Button + Mobile Menu Toggle */}
-            <div className="flex items-center gap-3 justify-self-end">
+            <div className={`flex items-center gap-3 ${isScrolled ? "justify-self-end" : ""}`}>
               <Link
                 href="/contact"
                 className={`px-6 py-2.5 rounded text-sm font-semibold transition-all ${
