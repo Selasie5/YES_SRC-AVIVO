@@ -3,6 +3,7 @@ import YebsCallout from "../../components/YebsCallout";
 import YebsPartnersSection from "../../components/YebsPartnersSection";
 import WhyYebsSection from "../../components/WhyYebsSection";
 import WhatHappensAtYebsSection from "../../components/WhatHappensAtYebsSection";
+import YebsSpeakersSection from "../../components/YebsSpeakersSection";
 import YebsAudienceSection from "../../components/YebsAudienceSection";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function YEBSPage() {
       <WhyYebsSection />
 
       <WhatHappensAtYebsSection />
+      <YebsSpeakersSection />
       <YebsAudienceSection />
     </main>
   );

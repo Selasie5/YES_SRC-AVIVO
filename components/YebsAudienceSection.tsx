@@ -28,7 +28,7 @@ const tabs: Tab[] = [
     headline: "Extend your reach through Ghana's flagship energy talent platform.",
     description:
       "Universities, government agencies, and development organisations are core to what YEBS achieves. If you're building youth employment, workforce development, or energy-transition programming, YEBS can extend your reach.",
-    cta: { href: "/contact", label: "Partner with us" },
+    cta: { href: "/yebs/register/partner", label: "Partner with us" },
     image: "/hero-bg.png",
   },
   {
@@ -39,7 +39,7 @@ const tabs: Tab[] = [
     headline: "Put your organisation in front of Ghana's most promising energy talent.",
     description:
       "Sponsoring YEBS puts your organisation in front of Ghana's most promising energy-sector talent — and starts a relationship with Afrovivo that extends well beyond the summit itself.",
-    cta: { href: "/contact", label: "Become a sponsor" },
+    cta: { href: "/yebs/register/sponsor", label: "Become a sponsor" },
     image: "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg",
   },
   {
@@ -50,7 +50,7 @@ const tabs: Tab[] = [
     headline: "Start your energy career where the hiring actually happens.",
     description:
       "If you're a student, recent graduate, or young professional building a future in energy, YEBS is where that future gets a running start. Register to attend and put yourself in front of the companies actually hiring.",
-    cta: { href: "/contact", label: "Register to attend" },
+    cta: { href: "/yebs/register/delegate", label: "Register to attend" },
     image: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg",
   },
 ];

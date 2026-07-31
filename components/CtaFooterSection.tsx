@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CaretRight } from "@phosphor-icons/react";
 
 function FlipLink({ href, text }: { href: string; text: string }) {
@@ -24,6 +25,7 @@ function FlipLink({ href, text }: { href: string; text: string }) {
 }
 
 export default function CtaFooterSection() {
+  const pathname = usePathname();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -42,6 +44,8 @@ export default function CtaFooterSection() {
     section.addEventListener("mousemove", handleMouseMove);
     return () => section.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <section

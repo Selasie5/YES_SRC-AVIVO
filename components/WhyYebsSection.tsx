@@ -100,7 +100,7 @@ export default function WhyYebsSection() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
           className="mt-10"
         >
-          <FlipButton href="#register" text="Register for YEBS 2026" />
+          <FlipButton href="/yebs/register/delegate" text="Register for YEBS 2026" />
         </motion.div>
       </div>
     </section>

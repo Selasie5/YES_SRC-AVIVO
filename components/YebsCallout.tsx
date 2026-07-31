@@ -34,8 +34,8 @@ type YebsCalloutProps = {
 };
 
 export default function YebsCallout({ variant = "landing" }: YebsCalloutProps) {
-  const registerHref = variant === "page" ? "#register" : "/yebs#register";
-  const sponsorHref = variant === "page" ? "#sponsor" : "/yebs#sponsor";
+  const registerHref = variant === "page" ? "/yebs/register/delegate" : "/yebs/register/delegate";
+  const sponsorHref = variant === "page" ? "/yebs/register/sponsor" : "/yebs/register/sponsor";
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isSnapped, setIsSnapped] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
