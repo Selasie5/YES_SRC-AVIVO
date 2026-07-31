@@ -18,7 +18,7 @@ export default function ContactForm() {
   const [selectedHelp, setSelectedHelp] = useState<string | null>(null);
 
   return (
-    <section className="min-h-screen bg-white px-6 pt-48 pb-24">
+    <section className="min-h-screen bg-white px-6 pb-24 pt-28 sm:pt-36 lg:pt-44">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
 
         {/* ──────── Left Column ──────── */}
@@ -28,7 +28,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
               animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-5xl md:text-5xl font-normal tracking-tight text-gray-900 font-[family-name:var(--font-inter-tight)]"
+              className="text-3xl font-normal tracking-tight text-gray-900 font-[family-name:var(--font-inter-tight)] sm:text-4xl md:text-5xl"
             >
               Let&apos;s Build the Bridge
             </motion.h1>

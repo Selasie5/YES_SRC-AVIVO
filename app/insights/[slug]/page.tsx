@@ -29,7 +29,7 @@ export default async function InsightArticlePage({ params }: Props) {
   if (!article) notFound();
 
   return (
-    <main className="min-h-screen bg-white pb-24 pt-32 text-gray-900 font-[family-name:var(--font-inter-tight)]">
+    <main className="min-h-screen bg-white pb-24 pt-28 text-gray-900 font-[family-name:var(--font-inter-tight)] sm:pt-36 lg:pt-44">
       <article className="mx-auto max-w-3xl px-6">
         <Link
           href="/insights"
@@ -43,7 +43,7 @@ export default async function InsightArticlePage({ params }: Props) {
           {article.date} &bull; {article.readTime}
         </p>
 
-        <h1 className="mb-6 text-4xl font-normal leading-tight tracking-tight md:text-5xl">
+        <h1 className="mb-6 text-3xl font-normal leading-tight tracking-tight sm:text-4xl md:text-5xl">
           {article.title}
         </h1>
 

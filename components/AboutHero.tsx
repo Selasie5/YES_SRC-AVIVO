@@ -22,7 +22,7 @@ const collageImages = [
 
 export default function AboutHero() {
   return (
-    <section className="flex flex-col items-center justify-center bg-white px-6 pt-48 pb-24 overflow-hidden text-center">
+    <section className="flex flex-col items-center justify-center overflow-hidden bg-white px-6 pb-24 pt-28 text-center sm:pt-36 lg:pt-48">
       {/* Hero Text */}
       <div className="max-w-3xl mx-auto flex flex-col items-center">
         <motion.h1
@@ -30,7 +30,7 @@ export default function AboutHero() {
           whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-5xl font-normal tracking-tight text-gray-900 font-[family-name:var(--font-inter-tight)]"
+          className="text-3xl font-normal tracking-tight text-gray-900 font-[family-name:var(--font-inter-tight)] sm:text-4xl md:text-5xl"
         >
           Bridging Talent, Capital &amp; Opportunity Across Africa&apos;s Energy Sector
         </motion.h1>
@@ -74,14 +74,26 @@ export default function AboutHero() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="mt-20 w-full max-w-[1200px] mx-auto"
+        className="mx-auto mt-12 w-full max-w-[1200px] sm:mt-20"
       >
-        {/*
-          Grid: 6 columns × 2 rows
-          Row 1: [small] [large-tall spanning 2 rows] [large-tall spanning 2 rows] [small] [small-wide spanning 2 cols]
-          Row 2: [small]                                                            [small] [small]
-        */}
-        <div className="grid grid-cols-6 grid-rows-2 gap-3 h-[420px]">
+        {/* Mobile: 2×2 grid */}
+        <div className="grid h-[280px] grid-cols-2 gap-3 sm:hidden">
+          {collageImages.slice(0, 4).map((img, i) => (
+            <motion.div
+              key={img.alt + i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="relative overflow-hidden rounded-xl"
+            >
+              <Image src={img.src} alt={img.alt} fill className="object-cover" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Desktop: mosaic */}
+        <div className="hidden h-[420px] grid-cols-6 grid-rows-2 gap-3 sm:grid">
           {/* Col 1, Row 1 — small top-left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

@@ -76,7 +76,7 @@ export default function WhyAfrovivoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex items-center gap-4"
+          className="flex flex-wrap items-center gap-3 sm:gap-4"
         >
           <div className="flex gap-2">
             <button 
@@ -94,7 +94,7 @@ export default function WhyAfrovivoSection() {
               <CaretRight size={20} className="text-gray-600" />
             </button>
           </div>
-          <Link href="/contact" className="bg-black text-white px-6 py-3 rounded text-sm font-semibold hover:bg-gray-800 transition-colors inline-flex items-center gap-2">
+          <Link href="/contact" className="inline-flex w-full items-center justify-center gap-2 rounded bg-black px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800 sm:w-auto">
             Start a Conversation
             <CaretRight weight="bold" />
           </Link>
@@ -114,7 +114,7 @@ export default function WhyAfrovivoSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="min-w-[90vw] md:min-w-[800px] lg:min-w-[950px] flex-shrink-0 snap-center flex flex-col md:flex-row rounded overflow-hidden h-auto md:h-[500px]"
+            className="min-w-[85vw] flex-shrink-0 snap-center flex flex-col overflow-hidden rounded h-auto sm:min-w-[90vw] md:min-w-[800px] md:flex-row md:h-[500px]"
           >
             {/* Left Content Half */}
             <div className={`${item.color} w-full md:w-1/2 p-10 md:p-14 flex flex-col justify-between text-white relative`}>

@@ -24,7 +24,7 @@ export default function RootLayout({
       lang="en"
       className={`${interTight.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col overflow-x-hidden">
         <Navbar />
         {children}
         <CtaFooterSection />

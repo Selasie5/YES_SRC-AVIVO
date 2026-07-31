@@ -33,7 +33,7 @@ export default function WhatWeDoSection() {
   return (
     <section className="px-6 py-24 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-8">
-        <h2 className="text-5xl md:text-6xl font-normal font-[family-name:var(--font-inter-tight)] max-w-sm tracking-tight text-gray-900">
+        <h2 className="max-w-sm text-3xl font-normal tracking-tight text-gray-900 sm:text-4xl md:text-6xl font-[family-name:var(--font-inter-tight)]">
           What we do
         </h2>
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6 max-w-xl">
@@ -43,19 +43,19 @@ export default function WhatWeDoSection() {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6">
+      <div className="flex flex-col gap-6 md:flex-row">
         {services.map((service, index) => (
           <div
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            className={`transition-all duration-500 ease-in-out ${
-              hoveredIndex !== null && hoveredIndex !== index ? "flex-[0.6]" : ""
-            } ${hoveredIndex === index ? "flex-[2]" : ""} ${
-              hoveredIndex === null ? "flex-1" : ""
+            className={`flex-1 transition-all duration-500 ease-in-out md:flex ${
+              hoveredIndex !== null && hoveredIndex !== index ? "md:flex-[0.6]" : ""
+            } ${hoveredIndex === index ? "md:flex-[2]" : ""} ${
+              hoveredIndex === null ? "md:flex-1" : ""
             }`}
           >
-            <div className="h-[300px] md:h-[500px]">
+            <div className="h-[280px] sm:h-[320px] md:h-[500px]">
               <ServiceCard
                 title={service.title}
                 description={service.description}

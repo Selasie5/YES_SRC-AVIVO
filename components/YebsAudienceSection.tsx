@@ -131,7 +131,7 @@ export default function YebsAudienceSection() {
       <section className="bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="overflow-hidden rounded bg-white">
-            <div className="relative flex flex-wrap items-end bg-white pt-4 md:pt-6" role="tablist">
+            <div className="relative flex flex-nowrap items-end overflow-x-auto bg-white pt-4 hide-scrollbar md:pt-6" role="tablist">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -143,7 +143,7 @@ export default function YebsAudienceSection() {
                     onClick={() => selectTab(tab)}
                     role="tab"
                     aria-selected={isActive}
-                    className={`relative flex items-center gap-2.5 px-4 py-3 md:gap-3 md:px-5 md:py-3.5 ${
+                    className={`relative flex shrink-0 items-center gap-2.5 px-4 py-3 md:gap-3 md:px-5 md:py-3.5 ${
                       isActive ? "z-10 text-gray-900" : "text-gray-400 hover:text-gray-600"
                     }`}
                   >

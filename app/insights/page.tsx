@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function InsightsPage() {
   return (
-    <main className="min-h-screen bg-white pb-24 pt-32 text-gray-900 font-[family-name:var(--font-inter-tight)]">
+    <main className="min-h-screen bg-white pb-24 pt-28 text-gray-900 font-[family-name:var(--font-inter-tight)] sm:pt-36 lg:pt-44">
       <div className="mx-auto max-w-7xl px-6">
         <InsightsFeatured article={featuredInsight} />
 

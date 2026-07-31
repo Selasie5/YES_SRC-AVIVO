@@ -67,7 +67,7 @@ export default function WhyYebsSection() {
           viewport={{ once: true, amount: 0.4 }}
           variants={textReveal}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl text-4xl font-normal leading-[1.05] tracking-tight text-gray-900 md:text-6xl lg:text-7xl font-[family-name:var(--font-inter-tight)]"
+          className="max-w-4xl text-3xl font-normal leading-[1.05] tracking-tight text-gray-900 sm:text-4xl md:text-6xl font-[family-name:var(--font-inter-tight)]"
         >
           Closing the gap between Ghana&apos;s youth and its energy sector.
         </motion.h2>

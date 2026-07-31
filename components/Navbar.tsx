@@ -19,6 +19,13 @@ export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     if (!isHome) {
       setIsScrolled(true);
     } else if (window.scrollY <= 20) {
@@ -55,13 +62,20 @@ export default function Navbar() {
     <>
       {isBannerVisible && (
         <header className="fixed top-0 left-0 right-0 w-full z-50">
-          <div className="bg-[#1a1a1a] text-white py-2.5 px-4 flex items-center justify-center relative w-full text-sm font-[family-name:var(--font-inter-tight)]">
-            <div className="flex items-center gap-3">
-              <span className="text-[#ff5c00] font-semibold">New</span>
-              <span className="text-gray-600">|</span>
-              <span className="font-semibold text-white tracking-tight">Youth Energy Bridge Summit 2026</span>
-              <Link href="/yebs/register/delegate" className="text-gray-400 hover:text-white transition-colors flex items-center gap-1 ml-1">
-                Register as a delegate
+          <div className="relative flex w-full items-center justify-center bg-[#1a1a1a] px-10 py-2.5 text-xs font-[family-name:var(--font-inter-tight)] text-white sm:text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center">
+              <span className="font-semibold text-[#ff5c00]">New</span>
+              <span className="hidden text-gray-600 sm:inline">|</span>
+              <span className="font-semibold tracking-tight text-white">
+                <span className="sm:hidden">YEBS 2026</span>
+                <span className="hidden sm:inline">Youth Energy Bridge Summit 2026</span>
+              </span>
+              <Link
+                href="/yebs/register/delegate"
+                className="ml-0 flex items-center gap-1 text-gray-400 transition-colors hover:text-white sm:ml-1"
+              >
+                <span className="sm:hidden">Register</span>
+                <span className="hidden sm:inline">Register as a delegate</span>
                 <CaretRight size={12} weight="bold" />
               </Link>
             </div>
@@ -106,10 +120,10 @@ export default function Navbar() {
             <div className={`flex items-center gap-3 ${isScrolled ? "justify-self-end" : ""}`}>
               <Link
                 href="/contact"
-                className={`px-6 py-2.5 rounded text-sm font-semibold transition-all ${
+                className={`hidden rounded px-4 py-2.5 text-sm font-semibold transition-all sm:inline-flex sm:px-6 ${
                   isScrolled
                     ? "bg-gray-800 text-white hover:bg-black"
-                    : "bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20"
+                    : "border border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/20"
                 }`}
               >
                 Get Started
@@ -127,7 +141,11 @@ export default function Navbar() {
       </header>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] overflow-y-auto bg-white pt-[120px] md:hidden">
+        <div
+          className={`fixed inset-0 z-[60] overflow-y-auto bg-white md:hidden ${
+            isBannerVisible ? "pt-[120px]" : "pt-20"
+          }`}
+        >
           <nav className="flex flex-col gap-6 px-6 py-8">
             {navigation.map((item) => (
               <div key={item.label}>

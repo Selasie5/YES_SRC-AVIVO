@@ -25,6 +25,30 @@ const sections = [
   }
 ];
 
+function DialContent({ activeIndex }: { activeIndex: number }) {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={activeIndex}
+        initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={{ opacity: 0, y: -30, filter: "blur(10px)" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="flex flex-col gap-6"
+      >
+        {sections[activeIndex].content.map((paragraph, i) => (
+          <p
+            key={i}
+            className="text-base leading-relaxed text-gray-600 font-[family-name:var(--font-inter-tight)] md:text-lg"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export default function AboutDialSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -45,85 +69,100 @@ export default function AboutDialSection() {
   });
 
   const handleDialClick = (index: number) => {
-    if (!containerRef.current) return;
-    const containerTop = containerRef.current.offsetTop;
-    const containerHeight = containerRef.current.offsetHeight;
-    const windowHeight = window.innerHeight;
+    setActiveIndex(index);
 
-    const targetScroll = containerTop + ((index * (containerHeight - windowHeight)) / 2);
-
-    window.scrollTo({
-      top: targetScroll,
-      behavior: "smooth"
-    });
+    if (window.innerWidth >= 1024 && containerRef.current) {
+      const containerTop = containerRef.current.offsetTop;
+      const containerHeight = containerRef.current.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const targetScroll = containerTop + ((index * (containerHeight - windowHeight)) / 2);
+      window.scrollTo({ top: targetScroll, behavior: "smooth" });
+    }
   };
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] w-full bg-white text-gray-900">
-      <div className="sticky top-0 h-screen w-full flex items-center px-6 overflow-hidden">
-
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-
-          {/* Left Column: The Dial */}
-          <div className="flex flex-col gap-8 justify-center z-10">
+    <>
+      {/* Mobile / tablet: tabbed layout */}
+      <section className="w-full bg-white px-6 py-20 text-gray-900 lg:hidden">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col gap-4 border-b border-gray-100 pb-6">
             {sections.map((sec, idx) => (
               <button
-                key={idx}
+                key={sec.title}
+                type="button"
                 onClick={() => handleDialClick(idx)}
-                className="text-left group relative"
+                className="relative text-left"
               >
-                <span className={`block text-3xl md:text-5xl font-medium tracking-tight transition-all duration-500 font-[family-name:var(--font-inter-tight)] ${
-                  activeIndex === idx ? "text-gray-900 translate-x-4" : "text-gray-300 hover:text-gray-500"
-                }`}>
+                <span
+                  className={`block text-2xl font-medium tracking-tight transition-all duration-300 font-[family-name:var(--font-inter-tight)] sm:text-3xl ${
+                    activeIndex === idx ? "text-gray-900" : "text-gray-300"
+                  }`}
+                >
                   {sec.title}
                 </span>
-                {/* Active Indicator line with caret-bg */}
                 {activeIndex === idx && (
                   <motion.div
-                    layoutId="activeDialLine"
-                    className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-full rounded-full"
+                    layoutId="activeDialLineMobile"
+                    className="absolute -left-3 top-1/2 h-full w-1 -translate-y-1/2 rounded-full"
                     style={{
                       background: "url('/caret-bg.png') repeat-y center",
                       backgroundSize: "8px 8px",
                     }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
                   />
                 )}
               </button>
             ))}
           </div>
+          <div className="mt-8 min-h-[200px]">
+            <DialContent activeIndex={activeIndex} />
+          </div>
+        </div>
+      </section>
 
-          {/* Right Column: Content */}
-          <div className="flex flex-col justify-center h-[400px] relative z-10 max-w-xl">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -30, filter: "blur(10px)" }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col gap-6"
-              >
-                {sections[activeIndex].content.map((paragraph, i) => (
-                  <p
-                    key={i}
-                    className="text-base md:text-lg leading-relaxed text-gray-600 font-[family-name:var(--font-inter-tight)]"
+      {/* Desktop: scroll-driven dial */}
+      <section ref={containerRef} className="relative hidden h-[300vh] w-full bg-white text-gray-900 lg:block">
+        <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden px-6">
+          <div className="mx-auto grid w-full max-w-7xl grid-cols-2 items-center gap-24">
+            <div className="z-10 flex flex-col justify-center gap-8">
+              {sections.map((sec, idx) => (
+                <button
+                  key={sec.title}
+                  type="button"
+                  onClick={() => handleDialClick(idx)}
+                  className="group relative text-left"
+                >
+                  <span
+                    className={`block text-5xl font-medium tracking-tight transition-all duration-500 font-[family-name:var(--font-inter-tight)] ${
+                      activeIndex === idx ? "translate-x-4 text-gray-900" : "text-gray-300 hover:text-gray-500"
+                    }`}
                   >
-                    {paragraph}
-                  </p>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+                    {sec.title}
+                  </span>
+                  {activeIndex === idx && (
+                    <motion.div
+                      layoutId="activeDialLine"
+                      className="absolute left-0 top-1/2 h-full w-1 -translate-y-1/2 rounded-full"
+                      style={{
+                        background: "url('/caret-bg.png') repeat-y center",
+                        backgroundSize: "8px 8px",
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            <div className="relative z-10 flex h-[400px] max-w-xl flex-col justify-center">
+              <DialContent activeIndex={activeIndex} />
+            </div>
           </div>
 
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[min(800px,200vw)] w-[min(800px,200vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gray-900/5 blur-[120px]" />
         </div>
-
-        {/* Ambient Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gray-900/5 rounded-full blur-[120px] pointer-events-none"></div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

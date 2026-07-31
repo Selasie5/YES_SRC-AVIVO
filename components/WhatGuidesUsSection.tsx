@@ -38,7 +38,7 @@ export default function WhatGuidesUsSection() {
 
   return (
     <section className="mb-24 w-full">
-      <h2 className="text-4xl md:text-5xl font-medium mb-12 font-[family-name:var(--font-inter-tight)] text-gray-900 tracking-tight">
+      <h2 className="mb-12 text-3xl font-medium tracking-tight text-gray-900 sm:text-4xl md:text-5xl font-[family-name:var(--font-inter-tight)]">
         What Guides Us
       </h2>
 
@@ -97,7 +97,7 @@ export default function WhatGuidesUsSection() {
         </div>
 
         {/* Right Column: Dynamic Image */}
-        <div className="relative w-full h-full rounded overflow-hidden bg-gray-100">
+        <div className="relative min-h-[280px] w-full overflow-hidden rounded bg-gray-100 md:min-h-[400px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={openIndex}

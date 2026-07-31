@@ -189,7 +189,7 @@ export function RegistrationHeader({ type }: { type: RegistrationType }) {
         initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
         animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="text-4xl font-normal tracking-tight text-gray-900 md:text-5xl font-[family-name:var(--font-inter-tight)]"
+        className="text-3xl font-normal tracking-tight text-gray-900 sm:text-4xl md:text-5xl font-[family-name:var(--font-inter-tight)]"
       >
         {content.title}
       </motion.h1>

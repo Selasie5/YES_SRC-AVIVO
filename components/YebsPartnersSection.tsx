@@ -36,7 +36,7 @@ function PartnerTile({
       aria-label={`Visit ${name} website`}
     >
       <span className={`text-center text-[15px] text-gray-800 ${className}`}>{name}</span>
-      <span className="absolute bottom-2.5 right-2.5 flex h-7 w-7 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-500 opacity-0 shadow-sm transition-all group-hover:opacity-100 group-hover:text-gray-900">
+      <span className="absolute bottom-2.5 right-2.5 flex h-7 w-7 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-500 opacity-100 shadow-sm transition-all sm:opacity-0 sm:group-hover:opacity-100 sm:group-hover:text-gray-900">
         <ArrowUpRight size={14} weight="bold" />
       </span>
     </a>

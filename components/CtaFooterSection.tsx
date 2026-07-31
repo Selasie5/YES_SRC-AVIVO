@@ -50,7 +50,7 @@ export default function CtaFooterSection() {
   return (
     <section
       ref={sectionRef}
-      className="sticky top-0 min-h-screen w-full bg-[#f97316] text-white overflow-hidden"
+      className="relative min-h-screen w-full overflow-hidden bg-[#f97316] text-white md:sticky md:top-0"
     >
       {/* Noise Texture */}
       <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
@@ -109,13 +109,13 @@ export default function CtaFooterSection() {
         </div>
 
         {/* Edge decorations */}
-        <div className="absolute inset-y-0 left-0 w-16 bg-[url('/caret-bg.png')] bg-repeat-y bg-left opacity-50 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-16 bg-[url('/caret-bg.png')] bg-repeat-y bg-right opacity-50 pointer-events-none" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-16 bg-[url('/caret-bg.png')] bg-repeat-y bg-left opacity-50 sm:block" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-16 bg-[url('/caret-bg.png')] bg-repeat-y bg-right opacity-50 sm:block" />
 
         {/* Footer */}
         <footer className="relative px-6 md:px-12 lg:px-24 py-12 md:py-16">
           {/* Border line between edge decorations */}
-          <div className="absolute top-0 left-16 right-16 h-px bg-white/20 pointer-events-none" />
+          <div className="pointer-events-none absolute left-4 right-4 top-0 h-px bg-white/20 sm:left-16 sm:right-16" />
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between gap-12 lg:gap-24">
             <div className="flex flex-col gap-4 max-w-sm">
               <span className="text-xl md:text-2xl font-medium tracking-tight font-[family-name:var(--font-inter-tight)]">
@@ -133,7 +133,7 @@ export default function CtaFooterSection() {
                 </h4>
                 <div className="flex flex-col gap-3">
                   <FlipLink href="/services#talent" text="Talent & Workforce" />
-                  <FlipLink href="/services#stakeholder" text="Stakeholder Engagement" />
+                  <FlipLink href="/services#communications" text="Stakeholder Engagement" />
                   <FlipLink href="/services#business-development" text="Business Development" />
                 </div>
               </div>

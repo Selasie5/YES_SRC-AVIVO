@@ -59,7 +59,7 @@ export default function WhatHappensAtYebsSection() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-24">
       <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-        <h2 className="max-w-sm text-5xl font-normal tracking-tight text-gray-900 md:text-6xl font-[family-name:var(--font-inter-tight)]">
+        <h2 className="max-w-sm text-3xl font-normal tracking-tight text-gray-900 sm:text-4xl md:text-6xl font-[family-name:var(--font-inter-tight)]">
           What happens at YEBS
         </h2>
         <p className="max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">
@@ -70,7 +70,7 @@ export default function WhatHappensAtYebsSection() {
       <div className="flex flex-col gap-6 md:flex-row">
         {highlights.map((highlight) => (
           <div key={highlight.title} className="flex-1">
-            <div className="h-[300px] md:h-[500px]">
+            <div className="h-[260px] sm:h-[320px] md:h-[500px]">
               <YebsHighlightCard
                 title={highlight.title}
                 description={highlight.description}

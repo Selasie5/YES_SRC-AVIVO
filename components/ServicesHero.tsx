@@ -11,7 +11,7 @@ const textReveal = {
 
 export default function ServicesHero() {
   return (
-    <section className="bg-white px-6 pt-48 pb-20">
+    <section className="bg-white px-6 pb-20 pt-28 sm:pt-36 lg:pt-44">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
           <motion.div
@@ -24,7 +24,7 @@ export default function ServicesHero() {
             <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
               Business units
             </p>
-            <h1 className="mt-4 text-5xl font-normal tracking-tight text-gray-900 md:text-6xl font-[family-name:var(--font-inter-tight)]">
+            <h1 className="mt-4 text-3xl font-normal tracking-tight text-gray-900 sm:text-4xl md:text-6xl font-[family-name:var(--font-inter-tight)]">
               Our Services
             </h1>
           </motion.div>

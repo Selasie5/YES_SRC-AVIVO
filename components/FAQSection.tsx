@@ -37,7 +37,7 @@ export default function FAQSection() {
         <div className="w-full lg:w-1/3 flex items-start">
 
           <div>
-            <h2 className="text-4xl md:text-5xl font-normal font-[family-name:var(--font-inter-tight)] tracking-tight text-gray-900 leading-tight">
+            <h2 className="text-3xl font-normal tracking-tight text-gray-900 sm:text-4xl md:text-5xl font-[family-name:var(--font-inter-tight)] leading-tight">
               Frequently asked questions
             </h2>
             <p className="mt-4 text-base md:text-lg text-gray-500 font-[family-name:var(--font-inter-tight)] leading-relaxed">

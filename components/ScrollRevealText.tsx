@@ -17,9 +17,9 @@ export default function ScrollRevealText() {
   const words = paragraphText.split(" ");
 
   return (
-    <section ref={sectionRef} className="relative bg-white px-6 py-40">
+    <section ref={sectionRef} className="relative bg-white px-6 py-20 md:py-40">
       <div className="max-w-5xl mx-auto">
-        <p className="text-2xl md:text-4xl lg:text-[3rem] font-light leading-[1.25] tracking-tight font-[family-name:var(--font-inter-tight)]">
+        <p className="text-xl font-light leading-[1.25] tracking-tight font-[family-name:var(--font-inter-tight)] sm:text-2xl md:text-4xl lg:text-[3rem]">
           {words.map((word, index) => {
             const start = index / words.length;
             const end = start + 0.04;

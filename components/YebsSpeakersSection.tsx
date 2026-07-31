@@ -28,7 +28,7 @@ export default function YebsSpeakersSection() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="mb-14 max-w-2xl"
           >
-            <h2 className="text-4xl font-normal tracking-tight md:text-5xl font-[family-name:var(--font-inter-tight)]">
+            <h2 className="text-3xl font-normal tracking-tight sm:text-4xl md:text-5xl font-[family-name:var(--font-inter-tight)]">
               Speakers
             </h2>
             <p className="mt-4 text-base leading-relaxed text-gray-400 md:text-lg">

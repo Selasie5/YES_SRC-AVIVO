@@ -114,7 +114,7 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           onSubmit={handleLogin}
-          className="relative z-10 w-full max-w-md rounded-xl border border-white/10 bg-white/95 p-8 shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-sm"
+          className="relative z-10 w-full max-w-md rounded-xl border border-white/10 bg-white/95 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:max-w-md sm:p-8"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Afrovivo Admin</p>
           <h1 className="mt-2 text-2xl font-semibold text-zinc-900">YEBS check-in</h1>
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
           </p>
         </div>
 
-        <section className="flex flex-wrap items-stretch gap-4">
+        <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:flex lg:flex-wrap lg:items-stretch">
           <StatCard
             label="Total registrations"
             value={stats.total}
@@ -194,8 +194,8 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white shadow-sm">
+            <table className="w-full min-w-[640px] text-sm">
               <thead>
                 <tr className="border-b border-zinc-100 bg-zinc-50">
                   <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500">Name</th>
@@ -250,7 +250,7 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <div className="flex justify-end gap-2">
+                        <div className="flex flex-col items-end justify-end gap-2 sm:flex-row">
                           {row.status !== "approved" && row.status !== "checked_in" && (
                             <button
                               type="button"
@@ -296,7 +296,7 @@ function StatCard({
 }) {
   return (
     <div
-      className={`flex min-w-[160px] flex-1 flex-col justify-between rounded-xl border p-5 ${
+      className={`flex flex-col justify-between rounded-xl border p-4 sm:min-w-[160px] sm:p-5 lg:flex-1 ${
         highlight
           ? "border-zinc-900 bg-zinc-900 text-white shadow-sm"
           : "border-zinc-200 bg-white"

@@ -57,7 +57,7 @@ export default function ServicesUnitsSection() {
           </p>
         </div>
 
-        <div className="relative mb-10 flex gap-1 border-b border-gray-200">
+        <div className="-mx-6 mb-10 flex gap-1 overflow-x-auto border-b border-gray-200 px-6 pb-px hide-scrollbar md:mx-0 md:px-0">
           {serviceUnits.map((unit) => {
             const isActive = activeId === unit.id;
             const Icon = unit.icon;
@@ -66,7 +66,7 @@ export default function ServicesUnitsSection() {
                 key={unit.id}
                 type="button"
                 onClick={() => goToUnit(unit.id)}
-                className={`relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors font-[family-name:var(--font-inter-tight)] ${
+                className={`relative flex shrink-0 items-center gap-2 px-4 py-3 text-sm font-medium transition-colors font-[family-name:var(--font-inter-tight)] ${
                   isActive ? "text-gray-900" : "text-gray-400 hover:text-gray-600"
                 }`}
               >

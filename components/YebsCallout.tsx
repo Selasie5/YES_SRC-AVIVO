@@ -11,7 +11,7 @@ function FlipButton({ href, text }: { href: string; text: string }) {
   return (
     <Link
       href={href}
-      className="group inline-flex items-center justify-center px-6 py-3 rounded text-sm font-semibold transition-colors bg-yellow-500 text-black hover:bg-yellow-400"
+      className="group inline-flex w-full items-center justify-center rounded bg-yellow-500 px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-yellow-400 sm:w-auto"
     >
       <div className="relative flex items-center h-5 overflow-hidden">
         <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
@@ -80,12 +80,12 @@ export default function YebsCallout({ variant = "landing" }: YebsCalloutProps) {
     <section
       id={variant === "landing" ? "yebs" : undefined}
       ref={sectionRef}
-      className={`relative h-screen w-full bg-[url('/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg')] bg-cover bg-center text-white overflow-hidden ${variant === "landing" ? "snap-start" : ""}`}
+      className={`relative min-h-[100dvh] w-full bg-[url('/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg')] bg-cover bg-center text-white overflow-hidden ${variant === "landing" ? "snap-start" : ""}`}
     >
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
       {variant === "landing" && (
-        <div className="absolute top-8 left-6 right-6 md:left-12 md:right-12 z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+        <div className="absolute top-8 left-4 right-4 z-10 flex flex-col gap-3 sm:left-6 sm:right-6 md:left-12 md:right-12 md:flex-row md:items-center md:justify-between md:gap-2">
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={isSnapped ? { opacity: 1, y: 0 } : {}}
@@ -176,12 +176,12 @@ export default function YebsCallout({ variant = "landing" }: YebsCalloutProps) {
             initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
             animate={isSnapped ? { filter: "blur(0px)", opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: variant === "page" ? 1.05 : 1.1 }}
-            className="flex flex-wrap items-center gap-4 font-[family-name:var(--font-inter-tight)]"
+            className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
           >
             <FlipButton href={registerHref} text="Register as a Delegate" />
             <Link
               href={sponsorHref}
-              className="group inline-flex items-center justify-center px-6 py-3 rounded text-sm font-semibold transition-colors bg-white text-black hover:bg-gray-200"
+              className="group inline-flex w-full items-center justify-center rounded bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-200 sm:w-auto"
             >
               <div className="relative flex items-center h-5 overflow-hidden">
                 <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">

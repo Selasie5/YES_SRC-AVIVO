@@ -78,7 +78,7 @@ export default function InsightsFeatured({ article }: { article: InsightArticle 
                 {article.title}
               </p>
               {article.highlight && (
-                <p className="mt-6 text-4xl font-semibold tracking-tight text-yellow-500 md:text-5xl">
+                <p className="mt-6 text-3xl font-semibold tracking-tight text-yellow-500 sm:text-4xl md:text-5xl">
                   {article.highlight}
                 </p>
               )}

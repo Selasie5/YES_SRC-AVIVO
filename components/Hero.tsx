@@ -20,7 +20,7 @@ export default function Hero() {
       />
 
       {/* Mobile Image (no animation) */}
-      <div className="md:hidden w-full h-[50vh] bg-[url('/hero-bg.png')] bg-cover bg-center" />
+      <div className="h-[40vh] min-h-[240px] max-h-[50vh] w-full bg-[url('/hero-bg.png')] bg-cover bg-center md:hidden" />
 
       {/* Text Content */}
       <div className="relative md:absolute top-0 left-0 w-full md:w-1/2 h-full flex flex-col justify-center px-4 md:px-8 lg:px-14 py-24 md:py-0 z-10">
@@ -28,7 +28,7 @@ export default function Hero() {
           initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
           animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.4 }}
-          className="text-5xl md:text-5xl font-normal font-[family-name:var(--font-inter-tight)] leading-tight mb-6 tracking-tight"
+          className="mb-6 text-3xl font-normal leading-tight tracking-tight font-[family-name:var(--font-inter-tight)] sm:text-4xl md:text-5xl"
         >
           Connecting Industry, Talent & Opportunity.
         </motion.h1>
