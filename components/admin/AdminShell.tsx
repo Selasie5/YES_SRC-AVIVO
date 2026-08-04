@@ -16,15 +16,17 @@ type AdminShellProps = {
   activeTab: string;
   onNavigate: (tab: string) => void;
   onLogout: () => void;
+  counts?: Record<string, number>;
 };
 
 const navItems = [
   { label: "Registrations", id: "registrations", icon: UsersThree },
   { label: "Speakers", id: "speakers", icon: UsersThree },
   { label: "Partners", id: "partners", icon: Buildings },
+  { label: "Contacts", id: "contacts", icon: UsersThree },
 ];
 
-function SidebarContent({ activeTab, onNavigate, onLogout, onMobileClose }: { activeTab: string; onNavigate: (tab: string) => void; onLogout: () => void; onMobileClose?: () => void }) {
+function SidebarContent({ activeTab, onNavigate, onLogout, onMobileClose, counts }: { activeTab: string; onNavigate: (tab: string) => void; onLogout: () => void; onMobileClose?: () => void; counts?: Record<string, number> }) {
   return (
     <>
       <div className="flex flex-col gap-6">
@@ -62,6 +64,11 @@ function SidebarContent({ activeTab, onNavigate, onLogout, onMobileClose }: { ac
                 >
                   <Icon className="h-4 w-4 shrink-0" weight={isActive ? "fill" : "regular"} />
                   <span className="flex-1">{item.label}</span>
+                  {counts && counts[item.id] !== undefined && (
+                    <span className={`text-[11px] font-medium px-1.5 py-0.5 rounded-full ${isActive ? "bg-black/5 text-black" : "bg-zinc-100 text-zinc-500"}`}>
+                      {counts[item.id]}
+                    </span>
+                  )}
                   {isActive && (
                     <CaretRight className="h-3.5 w-3.5 shrink-0 text-zinc-400" weight="bold" />
                   )}
@@ -99,7 +106,7 @@ function SidebarContent({ activeTab, onNavigate, onLogout, onMobileClose }: { ac
   );
 }
 
-export default function AdminShell({ children, activeTab, onNavigate, onLogout }: AdminShellProps) {
+export default function AdminShell({ children, activeTab, onNavigate, onLogout, counts }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -118,7 +125,7 @@ export default function AdminShell({ children, activeTab, onNavigate, onLogout }
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <SidebarContent activeTab={activeTab} onNavigate={onNavigate} onLogout={onLogout} onMobileClose={() => setSidebarOpen(false)} />
+        <SidebarContent activeTab={activeTab} onNavigate={onNavigate} onLogout={onLogout} onMobileClose={() => setSidebarOpen(false)} counts={counts} />
       </aside>
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-white">

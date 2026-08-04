@@ -60,3 +60,16 @@ export type Registration = typeof registrations.$inferSelect;
 export type NewRegistration = typeof registrations.$inferInsert;
 export type Speaker = typeof speakers.$inferSelect;
 export type Partner = typeof partners.$inferSelect;
+
+export const contacts = pgTable("contacts", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  email: text("email"),
+  phone: text("phone"),
+  organization: text("organization"),
+  helpTopic: text("help_topic"),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export type Contact = typeof contacts.$inferSelect;

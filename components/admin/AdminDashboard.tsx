@@ -12,13 +12,14 @@ import {
   PencilSimple,
   Trash,
   X,
+  Eye,
 } from "@phosphor-icons/react";
 import type { Registration, Speaker, Partner } from "../../db/schema";
 import AdminShell from "./AdminShell";
 import ImageUploadField from "./ImageUploadField";
 
 type Filter = "all" | "delegate" | "sponsor" | "partner";
-type Tab = "registrations" | "speakers" | "partners";
+type Tab = "registrations" | "speakers" | "partners" | "contacts";
 
 const statusStyles: Record<Registration["status"], string> = {
   pending: "bg-zinc-50 text-zinc-600 ring-zinc-200",
@@ -52,6 +53,14 @@ export default function AdminDashboard() {
   const [partnersList, setPartnersList] = useState<Partner[]>([]);
   const [partnersLoading, setPartnersLoading] = useState(false);
   const [partnerModal, setPartnerModal] = useState<{ open: boolean; partner: Partial<Partner> | null }>({ open: false, partner: null });
+
+  // Contacts state
+  const [contactsList, setContactsList] = useState<any[]>([]);
+  const [contactsLoading, setContactsLoading] = useState(false);
+  const [contactModal, setContactModal] = useState<{ open: boolean; contact: any | null }>({ open: false, contact: null });
+
+  // Stats state
+  const [counts, setCounts] = useState<Record<string, number>>({});
 
   const loadRegistrations = useCallback(async (checkAuth = false) => {
     setRegLoading(true);
@@ -90,11 +99,37 @@ export default function AdminDashboard() {
     finally { setPartnersLoading(false); }
   }, []);
 
+  const loadContacts = useCallback(async () => {
+    setContactsLoading(true);
+    try {
+      const res = await fetch("/api/admin/contacts");
+      if (res.status === 401) { setAuthenticated(false); return; }
+      const data = await res.json();
+      setContactsList(data ?? []);
+      setAuthenticated(true);
+    } catch { /* noop */ }
+    finally { setContactsLoading(false); }
+  }, []);
+
   useEffect(() => {
     if (activeTab === "registrations") void loadRegistrations(true);
     else if (activeTab === "speakers") void loadSpeakers();
     else if (activeTab === "partners") void loadPartners();
-  }, [activeTab, filter, loadRegistrations, loadSpeakers, loadPartners]);
+    else if (activeTab === "contacts") void loadContacts();
+  }, [activeTab, filter, loadRegistrations, loadSpeakers, loadPartners, loadContacts]);
+
+  useEffect(() => {
+    if (authenticated) {
+      void (async () => {
+        try {
+          const res = await fetch("/api/admin/stats");
+          if (res.ok) {
+            setCounts(await res.json());
+          }
+        } catch {}
+      })();
+    }
+  }, [authenticated]);
 
   async function handleLogin(event: React.FormEvent) {
     event.preventDefault();
@@ -122,6 +157,36 @@ export default function AdminDashboard() {
     await fetch("/api/admin/login", { method: "DELETE" });
     setAuthenticated(false);
     setPassword("");
+  }
+
+  function exportRegistrationsToCSV() {
+    if (registrations.length === 0) return;
+    const headers = ["Name", "Type", "Email", "Phone", "Organisation", "Role", "Status", "Notes", "Created At"];
+    const csvContent = [
+      headers.join(","),
+      ...registrations.map(r => {
+        return [
+          `"${(r.fullName || '').replace(/"/g, '""')}"`,
+          `"${r.type}"`,
+          `"${r.email}"`,
+          `"${(r.phone || '').replace(/"/g, '""')}"`,
+          `"${(r.organization || '').replace(/"/g, '""')}"`,
+          `"${(r.roleTitle || '').replace(/"/g, '""')}"`,
+          `"${r.status}"`,
+          `"${(r.notes || '').replace(/"/g, '""')}"`,
+          `"${new Date(r.createdAt).toLocaleString()}"`
+        ].join(",");
+      })
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `yebs_registrations_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   // --- Speaker CRUD ---
@@ -209,7 +274,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <AdminShell activeTab={activeTab} onNavigate={(tab) => setActiveTab(tab as Tab)} onLogout={handleLogout}>
+    <AdminShell activeTab={activeTab} onNavigate={(tab) => setActiveTab(tab as Tab)} onLogout={handleLogout} counts={counts}>
       {activeTab === "registrations" && (
         <div className="space-y-8">
           <div>
@@ -233,19 +298,29 @@ export default function AdminDashboard() {
                 <h2 className="text-lg font-semibold text-zinc-900">All registrations</h2>
                 <p className="text-sm text-zinc-500">Approve attendees and check them in on arrival.</p>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {(["all", "delegate", "sponsor", "partner"] as Filter[]).map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => setFilter(item)}
-                    className={`rounded-lg px-3 py-1.5 text-sm font-medium capitalize transition-colors ${
-                      filter === item ? "bg-zinc-900 text-white shadow-sm" : "border border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-wrap gap-2">
+                  {(["all", "delegate", "sponsor", "partner"] as Filter[]).map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() => setFilter(item)}
+                      className={`rounded-lg px-3 py-1.5 text-sm font-medium capitalize transition-colors ${
+                        filter === item ? "bg-zinc-900 text-white shadow-sm" : "border border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50"
+                      }`}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={exportRegistrationsToCSV}
+                  disabled={registrations.length === 0}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-zinc-900 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-black disabled:opacity-50"
+                >
+                  Export CSV
+                </button>
               </div>
             </div>
 
@@ -471,6 +546,66 @@ export default function AdminDashboard() {
           )}
         </div>
       )}
+
+      {activeTab === "contacts" && (
+        <div className="space-y-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-zinc-900">Contacts</h2>
+              <p className="text-sm text-zinc-500">View messages submitted from the contact form.</p>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white shadow-sm">
+            <table className="w-full min-w-[700px] text-sm">
+              <thead>
+                <tr className="border-b border-zinc-100 bg-zinc-50">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500">Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500">Name</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500">Organisation</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500">Help Topic</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500">Message</th>
+                  <th className="px-4 py-3 text-right text-xs font-medium text-zinc-500">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-zinc-100">
+                {contactsLoading ? (
+                  <tr><td colSpan={6} className="px-4 py-16 text-center text-zinc-500">Loading contacts...</td></tr>
+                ) : contactsList.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-16 text-center">
+                      <p className="text-sm font-medium text-zinc-900">No contacts yet</p>
+                      <p className="mt-1 text-sm text-zinc-500">Messages sent via the contact form will appear here.</p>
+                    </td>
+                  </tr>
+                ) : (
+                  contactsList.map((c) => (
+                    <tr key={c.id} className="group transition-colors hover:bg-zinc-50">
+                      <td className="px-4 py-3 text-zinc-500 whitespace-nowrap">{new Date(c.createdAt).toLocaleDateString()}</td>
+                      <td className="px-4 py-3 font-medium text-zinc-900">{c.name}</td>
+                      <td className="px-4 py-3 text-zinc-600">{c.organization ?? "—"}</td>
+                      <td className="px-4 py-3 text-zinc-600">{c.helpTopic ?? "—"}</td>
+                      <td className="px-4 py-3 text-zinc-500 max-w-xs truncate" title={c.message}>{c.message}</td>
+                      <td className="px-4 py-3 text-right">
+                        <button type="button" onClick={() => setContactModal({ open: true, contact: c })} className="rounded-lg border border-zinc-200 bg-white p-1.5 text-zinc-500 transition-colors hover:bg-zinc-50 hover:text-zinc-900" aria-label="View">
+                          <Eye size={14} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {contactModal.open && (
+            <ContactDetailsModal
+              contact={contactModal.contact}
+              onClose={() => setContactModal({ open: false, contact: null })}
+            />
+          )}
+        </div>
+      )}
     </AdminShell>
   );
 }
@@ -592,6 +727,66 @@ function PartnerFormModal({
             <button type="submit" className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-black">{isEdit ? "Save changes" : "Add partner"}</button>
           </div>
         </form>
+      </motion.div>
+    </div>
+  );
+}
+
+function ContactDetailsModal({
+  contact,
+  onClose,
+}: {
+  contact: any;
+  onClose: () => void;
+}) {
+  if (!contact) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg rounded-xl bg-white shadow-2xl overflow-y-auto max-h-[90vh]"
+      >
+        <div className="flex items-center justify-between border-b border-zinc-100 px-6 py-4">
+          <h3 className="text-base font-semibold text-zinc-900">Contact Details</h3>
+          <button type="button" onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50"><X size={16} /></button>
+        </div>
+        <div className="p-6 space-y-4">
+          <div>
+            <p className="text-xs font-medium text-zinc-500">Name</p>
+            <p className="text-sm text-zinc-900">{contact.name}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Email</p>
+              <p className="text-sm text-zinc-900">{contact.email || "—"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Phone</p>
+              <p className="text-sm text-zinc-900">{contact.phone || "—"}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Organisation</p>
+              <p className="text-sm text-zinc-900">{contact.organization || "—"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Help Topic</p>
+              <p className="text-sm text-zinc-900">{contact.helpTopic || "—"}</p>
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-medium text-zinc-500">Message</p>
+            <p className="text-sm text-zinc-900 mt-1 rounded-lg bg-zinc-50 p-3 whitespace-pre-wrap">{contact.message}</p>
+          </div>
+          <div>
+            <p className="text-xs font-medium text-zinc-500">Date Submitted</p>
+            <p className="text-sm text-zinc-900">{new Date(contact.createdAt).toLocaleString()}</p>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

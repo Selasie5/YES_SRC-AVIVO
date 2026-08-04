@@ -50,18 +50,18 @@ export default function AboutHero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap items-center justify-center gap-4 mt-8"
+          className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-4 mt-8 w-full sm:w-auto"
         >
           <Link
             href="/contact"
-            className="bg-gray-900 text-white px-6 py-3 rounded text-sm font-semibold inline-flex items-center gap-2 hover:bg-gray-800 transition-colors"
+            className="bg-gray-900 text-white px-6 py-3 rounded text-sm font-semibold flex sm:inline-flex justify-center items-center gap-2 hover:bg-gray-800 transition-colors w-full sm:w-auto"
           >
             Get in Touch
             <CaretRight weight="bold" size={14} />
           </Link>
           <Link
             href="/services"
-            className="bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded text-sm font-semibold hover:bg-gray-50 transition-colors"
+            className="bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded text-sm font-semibold flex sm:inline-flex justify-center items-center hover:bg-gray-50 transition-colors w-full sm:w-auto"
           >
             Our Services
           </Link>

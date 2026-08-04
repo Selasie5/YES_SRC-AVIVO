@@ -186,7 +186,7 @@ function WhyCard({
         <div className="relative z-10 mt-8 md:mt-10">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 rounded bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100"
+            className="flex sm:inline-flex justify-center items-center gap-2 rounded bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100 w-full sm:w-auto"
           >
             Learn more
             <CaretRight weight="bold" />
