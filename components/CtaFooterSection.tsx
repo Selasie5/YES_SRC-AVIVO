@@ -126,7 +126,7 @@ export default function CtaFooterSection() {
               </p>
             </div>
 
-            <div className="flex flex-wrap lg:flex-nowrap gap-8 md:gap-12 lg:gap-20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-nowrap gap-8 md:gap-12 lg:gap-20">
               <div className="flex flex-col gap-6">
                 <h4 className="text-xs font-semibold tracking-wider text-white/40 uppercase">
                   Services
