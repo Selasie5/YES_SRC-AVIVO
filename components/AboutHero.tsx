@@ -10,14 +10,14 @@ import { CaretRight } from "@phosphor-icons/react";
   We reuse the available images; replace with real photos when ready.
 */
 const collageImages = [
-  { src: "/hero-bg.png", alt: "Team presentation" },
-  { src: "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg", alt: "Collaboration" },
-  { src: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg", alt: "Teamwork" },
-  { src: "/home-office-users-attending-online-virtual-call-from-their-home.jpg", alt: "Virtual meeting" },
-  { src: "/hero-bg.png", alt: "Networking event" },
-  { src: "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg", alt: "Community" },
-  { src: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg", alt: "Youth empowerment" },
-  { src: "/home-office-users-attending-online-virtual-call-from-their-home.jpg", alt: "Energy sector" },
+  { src: "/hero-bg.jpg", alt: "Team presentation" },
+  { src: "/pexels-a-darmel-7710084.jpg", alt: "Collaboration" },
+  { src: "/mentors.jpg", alt: "Mentorship session" },
+  { src: "/keynotes.jpg", alt: "Keynote speakers" },
+  { src: "/delegates.jpg", alt: "Delegate networking" },
+  { src: "/pexels-janzakelj-16862261.jpg", alt: "Energy industry" },
+  { src: "/partners.jpeg", alt: "Partnership meeting" },
+  { src: "/pexels-umaraffan499-87236.jpg", alt: "Business development" },
 ];
 
 export default function AboutHero() {

@@ -13,7 +13,7 @@ export const speakers: SpeakerProfile[] = [
     name: "Dr. Ama Mensah",
     title: "Director of Energy Policy, Ministry of Energy",
     bio: "Dr. Mensah leads national workforce planning initiatives across Ghana's power and petroleum sectors, with a focus on youth employment and energy transition readiness.",
-    image: "/hero-bg.png",
+    image: "/hero-bg.jpg",
     topics: ["Policy", "Workforce planning", "Energy transition"],
   },
   {
@@ -37,7 +37,7 @@ export const speakers: SpeakerProfile[] = [
     name: "Michael Adjei",
     title: "CEO, Afrovivo International",
     bio: "Michael founded Afrovivo to close the distance between Ghana's emerging energy talent and the organisations that need them — YEBS is the flagship expression of that mission.",
-    image: "/hero-bg.png",
+    image: "/hero-bg.jpg",
     topics: ["YEBS", "Talent", "Industry partnerships"],
   },
   {
@@ -61,7 +61,7 @@ export const speakers: SpeakerProfile[] = [
     name: "Abena Osei",
     title: "Partner, ISSER Research",
     bio: "Abena researches labour market dynamics in Ghana's natural resource sectors and advises institutions on youth employment and skills development policy.",
-    image: "/hero-bg.png",
+    image: "/hero-bg.jpg",
     topics: ["Research", "Labour markets", "Policy"],
   },
   {

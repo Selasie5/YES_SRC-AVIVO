@@ -29,7 +29,7 @@ const tabs: Tab[] = [
     description:
       "Universities, government agencies, and development organisations are core to what YEBS achieves. If you're building youth employment, workforce development, or energy-transition programming, YEBS can extend your reach.",
     cta: { href: "/yebs/register/partner", label: "Partner with us" },
-    image: "/hero-bg.png",
+    image: "/partners.jpeg",
   },
   {
     id: "sponsors",
@@ -51,7 +51,7 @@ const tabs: Tab[] = [
     description:
       "If you're a student, recent graduate, or young professional building a future in energy, YEBS is where that future gets a running start. Register to attend and put yourself in front of the companies actually hiring.",
     cta: { href: "/yebs/register/delegate", label: "Register to attend" },
-    image: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg",
+    image: "/delegates.jpg",
   },
 ];
 
@@ -143,9 +143,8 @@ export default function YebsAudienceSection() {
                     onClick={() => selectTab(tab)}
                     role="tab"
                     aria-selected={isActive}
-                    className={`relative flex shrink-0 items-center gap-2.5 px-4 py-3 md:gap-3 md:px-5 md:py-3.5 ${
-                      isActive ? "z-10 text-gray-900" : "text-gray-400 hover:text-gray-600"
-                    }`}
+                    className={`relative flex shrink-0 items-center gap-2.5 px-4 py-3 md:gap-3 md:px-5 md:py-3.5 ${isActive ? "z-10 text-gray-900" : "text-gray-400 hover:text-gray-600"
+                      }`}
                   >
                     {isActive && (
                       <motion.div

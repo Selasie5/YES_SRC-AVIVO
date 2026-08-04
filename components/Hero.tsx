@@ -16,11 +16,11 @@ export default function Hero() {
         initial={{ width: "100%" }}
         animate={{ width: "50%" }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-        className="hidden md:block absolute top-0 right-0 h-full bg-[url('/hero-bg.png')] bg-cover bg-center"
+        className="hidden md:block absolute top-0 right-0 h-full bg-[url('/hero-bg.jpg')] bg-cover bg-center"
       />
 
       {/* Mobile Image (no animation) */}
-      <div className="h-[40vh] min-h-[240px] max-h-[50vh] w-full bg-[url('/hero-bg.png')] bg-cover bg-center md:hidden" />
+      <div className="h-[40vh] min-h-[240px] max-h-[50vh] w-full bg-[url('/hero-bg.jpg')] bg-cover bg-center md:hidden" />
 
       {/* Text Content */}
       <div className="relative md:absolute top-0 left-0 w-full md:w-1/2 h-full flex flex-col justify-center px-4 md:px-8 lg:px-14 py-24 md:py-0 z-10">

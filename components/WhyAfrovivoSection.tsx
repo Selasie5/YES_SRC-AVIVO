@@ -14,7 +14,7 @@ const whyData = [
     title: "Sector-fluent.",
     description: "We speak the language of energy — technical, regulatory, and commercial — not generic business services.",
     color: "bg-[#E65C2B]",
-    image: "/hero-bg.png"
+    image: "/hero-bg.jpg"
   },
   {
     id: 2,
@@ -55,7 +55,7 @@ export default function WhyAfrovivoSection() {
     <section className="py-24 md:py-36 max-w-[1600px] mx-auto px-6 overflow-hidden">
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -71,7 +71,7 @@ export default function WhyAfrovivoSection() {
         </motion.div>
 
         {/* Carousel Controls & CTA */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -79,14 +79,14 @@ export default function WhyAfrovivoSection() {
           className="hidden flex-wrap items-center gap-3 sm:gap-4 md:flex"
         >
           <div className="flex gap-2">
-            <button 
+            <button
               onClick={scrollLeft}
               className="w-12 h-12 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
               aria-label="Scroll left"
             >
               <CaretLeft size={20} className="text-gray-600" />
             </button>
-            <button 
+            <button
               onClick={scrollRight}
               className="w-12 h-12 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
               aria-label="Scroll right"

@@ -9,27 +9,27 @@ const guideItems = [
   {
     title: "Credibility",
     content: "Every engagement is delivered to a standard that stands up to scrutiny — from boards, from regulators, from international partners.",
-    image: "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg"
+    image: "/cse.jpg"
   },
   {
     title: "Bridge-Building",
     content: "We exist to connect, not to compete. Talent to employers. Companies to partners. Ideas to capital.",
-    image: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg"
+    image: "/pexels-a-darmel-7710084.jpg"
   },
   {
     title: "Pan-African Ambition, Ghanaian Discipline",
     content: "Rooted in Ghanaian execution standards, building toward continental relevance.",
-    image: "/hero-bg.png"
+    image: "/pexels-janzakelj-16862261.jpg"
   },
   {
     title: "Youth as Infrastructure",
     content: "We treat young talent as core sector infrastructure — not a CSR afterthought, but a strategic necessity for energy security and industrial growth.",
-    image: "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg"
+    image: "/delegates.jpg"
   },
   {
     title: "Integrity in Advisory",
     content: "We give independent, conflict-aware advice, and we're transparent about our commercial relationships rather than pretending to a neutrality we don't have.",
-    image: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg"
+    image: "/pexels-umaraffan499-87236.jpg"
   }
 ];
 

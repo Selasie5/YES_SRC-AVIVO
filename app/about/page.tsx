@@ -22,7 +22,7 @@ export default function AboutPage() {
           <h2 className="text-4xl md:text-5xl font-medium mb-8 font-[family-name:var(--font-inter-tight)] text-gray-900 tracking-tight">Where We're Headed</h2>
           <div className="relative w-full aspect-[16/9] rounded overflow-hidden mb-8 bg-gray-100">
             <Image
-              src="/hero-bg.png"
+              src="/hero-bg.jpg"
               alt="Where We're Headed"
               fill
               className="object-cover"

@@ -5,7 +5,7 @@ const highlights = [
     title: "Keynotes & Panels",
     description:
       "Energy sector leaders, policymakers, and entrepreneurs share insight on where Ghana's industry is headed — and what it takes to build a career inside it.",
-    image: "/hero-bg.png",
+    image: "/keynotes.jpg",
     gradient: "bg-gradient-to-b from-black/50 via-transparent to-black/60",
   },
   {
@@ -19,7 +19,7 @@ const highlights = [
     title: "Mentorship & Networking",
     description:
       "Rising professionals meet sector veterans in structured mentorship sessions — with networking built for outcomes, not just badges and business cards.",
-    image: "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg",
+    image: "/mentors.jpg",
     gradient: "bg-gradient-to-b from-black/50 via-transparent to-black/60",
   },
 ];

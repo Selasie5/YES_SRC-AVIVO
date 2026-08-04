@@ -24,7 +24,7 @@ export const serviceUnits: ServiceUnit[] = [
     description:
       "We build the pipelines that get them there — from graduate recruitment and internship placement to executive mentorship and workforce consulting.",
     icon: Users,
-    image: "/hero-bg.png",
+    image: "/hero-bg.jpg",
     services: [
       "Energy Talent Database",
       "Graduate Recruitment",
@@ -48,7 +48,7 @@ export const serviceUnits: ServiceUnit[] = [
       "We help energy companies tell their story credibly — to regulators, communities, media, and investors.",
     icon: Megaphone,
     image:
-      "/two-women-sits-at-a-table-in-a-cafe-smiling-they-are-both-resting-their-chin-on-their-left-hand-and-they-both-have-their-hair-pulled-back-there-is-an-open-laptop-in-front-of-them-on-the-table-and-a-8aefc539.jpeg",
+      "/cse.jpg",
     services: [
       "Corporate Communications Strategy",
       "ESG & Sustainability Communications",
@@ -74,7 +74,7 @@ export const serviceUnits: ServiceUnit[] = [
       "Partnership development, market entry strategy, and investment facilitation across Ghana and West Africa's energy sector.",
     icon: Handshake,
     image:
-      "/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg",
+      "/market-access.jpg",
     services: [
       "Partnership Development",
       "B2B Matchmaking",
