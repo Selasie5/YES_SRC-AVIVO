@@ -3,6 +3,7 @@ import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import CtaFooterSection from "../components/CtaFooterSection";
+import { Analytics } from "@vercel/analytics/next"
 
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col overflow-x-hidden">
         <Navbar />
         {children}
+        <Analytics />
         <CtaFooterSection />
       </body>
     </html>
