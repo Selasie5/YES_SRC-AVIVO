@@ -166,8 +166,8 @@ export default function CtaFooterSection() {
                   Legal
                 </h4>
                 <div className="flex flex-col gap-3">
-                  <FlipLink href="#" text="Privacy" />
-                  <FlipLink href="#" text="Terms" />
+                  <FlipLink href="/privacy" text="Privacy Policy" />
+                  <FlipLink href="/terms" text="Terms of Service" />
                 </div>
               </div>
             </div>

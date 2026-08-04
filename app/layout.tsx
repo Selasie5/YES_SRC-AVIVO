@@ -3,6 +3,7 @@ import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import CtaFooterSection from "../components/CtaFooterSection";
+import CookieBanner from "../components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next"
 
 const interTight = Inter_Tight({
@@ -30,6 +31,7 @@ export default function RootLayout({
         {children}
         <Analytics />
         <CtaFooterSection />
+        <CookieBanner />
       </body>
     </html>
   );
