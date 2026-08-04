@@ -29,7 +29,7 @@ export const registrations = pgTable("registrations", {
   organization: text("organization"),
   roleTitle: text("role_title"),
   notes: text("notes"),
-  metadata: jsonb("metadata").$type<Record<string, string>>(),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
   status: registrationStatusEnum("status").default("pending").notNull(),
   checkedInAt: timestamp("checked_in_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),

@@ -43,6 +43,7 @@ export default function AdminDashboard() {
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
   const [regLoading, setRegLoading] = useState(false);
+  const [registrationModal, setRegistrationModal] = useState<{ open: boolean; registration: Registration | null }>({ open: false, registration: null });
 
   // Speakers state
   const [speakersList, setSpeakersList] = useState<Speaker[]>([]);
@@ -375,6 +376,9 @@ export default function AdminDashboard() {
                             {row.status !== "checked_in" && (
                               <button type="button" onClick={() => updateStatus(row.id, "checked_in")} className="rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black">Check in</button>
                             )}
+                            <button type="button" onClick={() => setRegistrationModal({ open: true, registration: row })} className="rounded-lg border border-zinc-200 bg-white p-1.5 text-zinc-500 transition-colors hover:bg-zinc-50 hover:text-zinc-900" aria-label="View">
+                              <Eye size={14} />
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -384,6 +388,13 @@ export default function AdminDashboard() {
               </table>
             </div>
           </section>
+
+          {registrationModal.open && (
+            <RegistrationDetailsModal
+              registration={registrationModal.registration}
+              onClose={() => setRegistrationModal({ open: false, registration: null })}
+            />
+          )}
         </div>
       )}
 
@@ -785,6 +796,112 @@ function ContactDetailsModal({
           <div>
             <p className="text-xs font-medium text-zinc-500">Date Submitted</p>
             <p className="text-sm text-zinc-900">{new Date(contact.createdAt).toLocaleString()}</p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+function RegistrationDetailsModal({
+  registration,
+  onClose,
+}: {
+  registration: Registration | null;
+  onClose: () => void;
+}) {
+  if (!registration) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg rounded-xl bg-white shadow-2xl overflow-y-auto max-h-[90vh]"
+      >
+        <div className="flex items-center justify-between border-b border-zinc-100 px-6 py-4">
+          <h3 className="text-base font-semibold text-zinc-900 capitalize">{registration.type} Registration Details</h3>
+          <button type="button" onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50"><X size={16} /></button>
+        </div>
+        <div className="p-6 space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Name</p>
+              <p className="text-sm text-zinc-900">{registration.fullName}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Status</p>
+              <span className={`mt-1 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ring-1 ring-inset ${statusStyles[registration.status]}`}>
+                {registration.status.replace("_", " ")}
+              </span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Email</p>
+              <p className="text-sm text-zinc-900">{registration.email || "—"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Phone</p>
+              <p className="text-sm text-zinc-900">{registration.phone || "—"}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Organisation</p>
+              <p className="text-sm text-zinc-900">{registration.organization || "—"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Role / Title</p>
+              <p className="text-sm text-zinc-900">{registration.roleTitle || "—"}</p>
+            </div>
+          </div>
+          {registration.notes && (
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Notes / Comments</p>
+              <p className="text-sm text-zinc-900 mt-1 rounded-lg bg-zinc-50 p-3 whitespace-pre-wrap">{registration.notes}</p>
+            </div>
+          )}
+
+          {/* Metadata Section */}
+          {registration.metadata && Object.keys(registration.metadata).length > 0 && (
+            <div className="pt-4 border-t border-zinc-100">
+              <h4 className="text-sm font-semibold text-zinc-900 mb-3">Additional Details</h4>
+              <div className="space-y-4">
+                {Object.entries(registration.metadata).map(([key, value]) => {
+                  // Format key (e.g. skillsBuilding -> Skills Building)
+                  const formattedKey = key
+                    .replace(/([A-Z])/g, " $1")
+                    .replace(/^./, (str) => str.toUpperCase());
+                  
+                  let displayValue = "—";
+                  if (Array.isArray(value)) {
+                    displayValue = value.length > 0 ? value.join(", ") : "—";
+                  } else if (value) {
+                    displayValue = String(value);
+                  }
+
+                  return (
+                    <div key={key}>
+                      <p className="text-xs font-medium text-zinc-500">{formattedKey}</p>
+                      <p className="text-sm text-zinc-900 mt-1 rounded-lg bg-zinc-50 p-3 whitespace-pre-wrap">{displayValue}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 gap-4 pt-2 border-t border-zinc-100">
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Date Registered</p>
+              <p className="text-sm text-zinc-900">{new Date(registration.createdAt).toLocaleString()}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-zinc-500">Check-in Time</p>
+              <p className="text-sm text-zinc-900">{registration.checkedInAt ? new Date(registration.checkedInAt).toLocaleString() : "—"}</p>
+            </div>
           </div>
         </div>
       </motion.div>

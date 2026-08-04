@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       organization?: string;
       roleTitle?: string;
       notes?: string;
-      metadata?: Record<string, string>;
+      metadata?: Record<string, any>;
     };
 
     if (!type || !fullName?.trim() || !email?.trim()) {
