@@ -106,7 +106,7 @@ export default function AdminDashboard() {
       const res = await fetch("/api/admin/contacts");
       if (res.status === 401) { setAuthenticated(false); return; }
       const data = await res.json();
-      setContactsList(data ?? []);
+      setContactsList(Array.isArray(data) ? data : []);
       setAuthenticated(true);
     } catch { /* noop */ }
     finally { setContactsLoading(false); }

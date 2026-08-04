@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { CaretRight, CheckCircle } from "@phosphor-icons/react";
+import { CaretRight, CaretDown, Check, CheckCircle } from "@phosphor-icons/react";
 import confetti from "canvas-confetti";
+import * as Select from "@radix-ui/react-select";
 
 type RegistrationType = "delegate" | "sponsor" | "partner";
 
@@ -161,10 +162,10 @@ export default function RegistrationForm({ type }: { type: RegistrationType }) {
           </div>
 
           {type === "sponsor" && (
-            <Field
+            <SelectField
               label="Sponsorship tier interest"
               name="sponsorshipTier"
-              placeholder="Platinum, Gold, Silver, or Bronze"
+              options={["Platinum", "Gold", "Silver", "Bronze"]}
             />
           )}
 
@@ -301,21 +302,37 @@ function SelectField({
       <label htmlFor={name} className="mb-2 block text-sm font-medium text-gray-700">
         {label}
       </label>
-      <select
-        id={name}
-        name={name}
-        required={required}
-        className="w-full rounded border border-gray-200 px-4 py-3 text-sm text-gray-900 outline-none transition-colors focus:border-gray-900 bg-white"
-      >
-        <option value="" disabled selected>
-          Select an option
-        </option>
-        {options.map((opt) => (
-          <option key={opt} value={opt}>
-            {opt}
-          </option>
-        ))}
-      </select>
+      <Select.Root name={name} required={required}>
+        <Select.Trigger
+          id={name}
+          className="flex h-[46px] w-full items-center justify-between rounded border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition-colors hover:bg-gray-50 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 data-[placeholder]:text-gray-500"
+        >
+          <Select.Value placeholder="Select an option" />
+          <Select.Icon>
+            <CaretDown weight="bold" className="text-gray-500" />
+          </Select.Icon>
+        </Select.Trigger>
+        <Select.Portal>
+          <Select.Content className="overflow-hidden rounded-md border border-gray-200 bg-white shadow-lg z-50">
+            <Select.Viewport className="p-1">
+              {options.map((opt) => (
+                <Select.Item
+                  key={opt}
+                  value={opt}
+                  className="relative flex cursor-pointer select-none items-center rounded-sm py-2 pl-8 pr-4 text-sm text-gray-900 outline-none hover:bg-gray-100 data-[highlighted]:bg-gray-100"
+                >
+                  <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+                    <Select.ItemIndicator>
+                      <Check weight="bold" className="h-4 w-4 text-gray-900" />
+                    </Select.ItemIndicator>
+                  </span>
+                  <Select.ItemText>{opt}</Select.ItemText>
+                </Select.Item>
+              ))}
+            </Select.Viewport>
+          </Select.Content>
+        </Select.Portal>
+      </Select.Root>
     </div>
   );
 }
