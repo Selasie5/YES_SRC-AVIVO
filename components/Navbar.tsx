@@ -62,7 +62,7 @@ export default function Navbar() {
     <>
       {isBannerVisible && (
         <header className="fixed top-0 left-0 right-0 w-full z-50">
-          <div className="relative flex w-full items-center justify-center bg-[#1a1a1a] px-10 py-2.5 text-xs font-[family-name:var(--font-inter-tight)] text-white sm:text-sm">
+          <div className="relative flex w-full items-center justify-center bg-[#1a1a1a] px-10 py-1.5 sm:py-2.5 text-xs font-[family-name:var(--font-inter-tight)] text-white sm:text-sm">
             <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center">
               <span className="font-semibold text-[#ff5c00]">New</span>
               <span className="hidden text-gray-600 sm:inline">|</span>
@@ -101,8 +101,8 @@ export default function Navbar() {
           }`}
         >
           <div
-            className={`relative max-w-[1600px] mx-auto px-6 h-20 ${
-              isScrolled ? "grid grid-cols-3 items-center" : "flex items-center justify-between"
+            className={`relative max-w-[1600px] mx-auto px-6 h-14 md:h-20 ${
+              isScrolled ? "flex justify-between lg:grid lg:grid-cols-3 items-center" : "flex items-center justify-between"
             }`}
           >
             <Link href="/" className="flex items-center gap-2">
@@ -141,50 +141,95 @@ export default function Navbar() {
       </header>
 
       {isMobileMenuOpen && (
-        <div
-          className={`fixed inset-0 z-[60] overflow-y-auto bg-white md:hidden ${
-            isBannerVisible ? "pt-[120px]" : "pt-20"
-          }`}
-        >
-          <nav className="flex flex-col gap-6 px-6 py-8">
-            {navigation.map((item) => (
-              <div key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-xl font-semibold text-gray-900 font-[family-name:var(--font-inter-tight)]"
-                >
-                  {item.label}
-                </Link>
-                {item.columns && (
-                  <ul className="mt-3 space-y-2 border-l border-gray-100 pl-4">
-                    {item.columns.flatMap((column) =>
-                      column.links.map((link) => (
-                        <li key={link.href + link.label}>
-                          <Link
-                            href={link.href}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="text-sm text-gray-600 hover:text-gray-900"
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                )}
-              </div>
-            ))}
-            <Link
-              href="/contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="mt-2 inline-flex w-fit bg-gray-900 text-white px-8 py-3 rounded text-sm font-semibold hover:bg-gray-800 transition-colors"
-            >
-              Get Started
+        <div className="fixed inset-0 z-[60] flex flex-col bg-white md:hidden">
+          <div className="flex items-center justify-between px-6 h-14 border-b border-gray-100 shrink-0">
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="font-bold text-2xl tracking-tight font-[family-name:var(--font-inter-tight)] text-black">
+              Afrovivo
             </Link>
-          </nav>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 text-gray-900"
+              aria-label="Close menu"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          
+          <div className="flex-1 overflow-y-auto">
+            <nav className="flex flex-col px-6 py-6 space-y-2">
+              {navigation.map((item) => (
+                <MobileMenuItem
+                  key={item.label}
+                  item={item}
+                  onClose={() => setIsMobileMenuOpen(false)}
+                />
+              ))}
+              <div className="pt-6">
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex w-full items-center justify-center bg-gray-900 text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </nav>
+          </div>
         </div>
       )}
     </>
+  );
+}
+
+function MobileMenuItem({ item, onClose }: { item: any; onClose: () => void }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  if (!item.columns) {
+    return (
+      <Link
+        href={item.href}
+        onClick={onClose}
+        className="block py-3 text-xl font-semibold text-gray-900 font-[family-name:var(--font-inter-tight)]"
+      >
+        {item.label}
+      </Link>
+    );
+  }
+  
+  return (
+    <div className="flex flex-col">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-between py-3 text-xl font-semibold text-gray-900 font-[family-name:var(--font-inter-tight)] text-left"
+      >
+        {item.label}
+        <CaretRight 
+          size={16} 
+          weight="bold" 
+          className={`text-gray-400 transition-transform duration-300 ${isOpen ? "rotate-90" : ""}`} 
+        />
+      </button>
+      <div 
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <ul className="mt-1 mb-3 space-y-1 pl-4 border-l-2 border-gray-100">
+          {item.columns.flatMap((column: any) =>
+            column.links.map((link: any) => (
+              <li key={link.href + link.label}>
+                <Link
+                  href={link.href}
+                  onClick={onClose}
+                  className="block py-2 text-base text-gray-600 hover:text-gray-900"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))
+          )}
+        </ul>
+      </div>
+    </div>
   );
 }
