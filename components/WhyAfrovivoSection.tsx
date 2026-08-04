@@ -76,7 +76,7 @@ export default function WhyAfrovivoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap items-center gap-3 sm:gap-4"
+          className="hidden flex-wrap items-center gap-3 sm:gap-4 md:flex"
         >
           <div className="flex gap-2">
             <button 
@@ -101,61 +101,102 @@ export default function WhyAfrovivoSection() {
         </motion.div>
       </div>
 
-      {/* Cards Carousel */}
-      <div 
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="mt-6 md:hidden"
+      >
+        <Link
+          href="/contact"
+          className="inline-flex w-full items-center justify-center gap-2 rounded bg-black px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
+        >
+          Start a Conversation
+          <CaretRight weight="bold" />
+        </Link>
+      </motion.div>
+
+      {/* Mobile: stacked cards */}
+      <div className="flex flex-col gap-6 md:hidden">
+        {whyData.map((item, index) => (
+          <WhyCard key={item.id} item={item} index={index} />
+        ))}
+      </div>
+
+      {/* Desktop: horizontal carousel */}
+      <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar relative"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        className="relative hidden gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar md:flex"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {whyData.map((item, index) => (
-          <motion.div 
-            key={item.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="min-w-[85vw] flex-shrink-0 snap-center flex flex-col overflow-hidden rounded h-auto sm:min-w-[90vw] md:min-w-[800px] md:flex-row md:h-[500px]"
-          >
-            {/* Left Content Half */}
-            <div className={`${item.color} w-full md:w-1/2 p-10 md:p-14 flex flex-col justify-between text-white relative`}>
-              {/* Subtle pattern or grid overlay (like Mintlify screenshot) */}
-              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-              
-              <div className="relative z-10">
-                <span className="text-sm font-bold tracking-widest uppercase mb-12 inline-flex items-center gap-2 font-[family-name:var(--font-inter-tight)]">
-                  <item.icon size={18} weight="light" className="text-white/80" />
-                  {item.label}
-                </span>
-                
-                <h3 className="text-3xl md:text-4xl font-normal font-[family-name:var(--font-inter-tight)] mb-4 leading-tight">
-                  {item.title}
-                </h3>
-                
-                <p className="text-sm md:text-base text-white/90 font-[family-name:var(--font-inter-tight)] leading-relaxed max-w-md">
-                  {item.description}
-                </p>
-              </div>
-
-              <div className="relative z-10 mt-12 md:mt-0">
-                <Link href="/services" className="bg-white text-black px-6 py-3 rounded text-sm font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
-                  Learn more
-                  <CaretRight weight="bold" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Image Half */}
-            <div className="w-full md:w-1/2 h-[300px] md:h-full relative">
-              <Image 
-                src={item.image} 
-                alt={item.title} 
-                fill 
-                className="object-cover" 
-              />
-            </div>
-          </motion.div>
+          <WhyCard key={item.id} item={item} index={index} variant="carousel" />
         ))}
       </div>
     </section>
+  );
+}
+
+type WhyItem = (typeof whyData)[number];
+
+function WhyCard({
+  item,
+  index,
+  variant = "stack",
+}: {
+  item: WhyItem;
+  index: number;
+  variant?: "stack" | "carousel";
+}) {
+  const Icon = item.icon;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.98 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className={
+        variant === "carousel"
+          ? "flex h-auto min-h-[500px] w-[min(800px,calc(100vw-3rem))] shrink-0 snap-center flex-col overflow-hidden rounded md:min-w-[800px] md:flex-row"
+          : "flex flex-col overflow-hidden rounded"
+      }
+    >
+      <div
+        className={`${item.color} relative flex w-full flex-col justify-between p-6 text-white sm:p-8 md:w-1/2 md:p-14`}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px] opacity-10" />
+
+        <div className="relative z-10">
+          <span className="mb-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest sm:mb-8 sm:text-sm font-[family-name:var(--font-inter-tight)]">
+            <Icon size={18} weight="light" className="text-white/80" />
+            {item.label}
+          </span>
+
+          <h3 className="mb-3 text-2xl font-normal leading-snug sm:text-3xl md:text-4xl font-[family-name:var(--font-inter-tight)]">
+            {item.title}
+          </h3>
+
+          <p className="max-w-md text-sm leading-relaxed text-white/90 sm:text-base font-[family-name:var(--font-inter-tight)]">
+            {item.description}
+          </p>
+        </div>
+
+        <div className="relative z-10 mt-8 md:mt-10">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 rounded bg-white px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100"
+          >
+            Learn more
+            <CaretRight weight="bold" />
+          </Link>
+        </div>
+      </div>
+
+      <div className="relative h-[220px] w-full shrink-0 sm:h-[280px] md:h-auto md:min-h-[500px] md:w-1/2">
+        <Image src={item.image} alt={item.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 400px" />
+      </div>
+    </motion.div>
   );
 }

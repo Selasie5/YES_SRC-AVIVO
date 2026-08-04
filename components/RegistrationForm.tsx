@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { CaretRight } from "@phosphor-icons/react";
+import { CaretRight, CheckCircle } from "@phosphor-icons/react";
+import confetti from "canvas-confetti";
 
 type RegistrationType = "delegate" | "sponsor" | "partner";
 
@@ -35,10 +36,11 @@ export default function RegistrationForm({ type }: { type: RegistrationType }) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setStatus("loading");
     setError("");
 
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(formElement);
     const payload = {
       type,
       fullName: form.get("fullName"),
@@ -67,7 +69,7 @@ export default function RegistrationForm({ type }: { type: RegistrationType }) {
       }
 
       setStatus("success");
-      event.currentTarget.reset();
+      formElement.reset();
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Registration failed");
@@ -75,21 +77,7 @@ export default function RegistrationForm({ type }: { type: RegistrationType }) {
   }
 
   if (status === "success") {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-xl border border-green-200 bg-green-50 p-8 text-center"
-      >
-        <h2 className="text-2xl font-semibold text-gray-900">Registration received</h2>
-        <p className="mt-3 text-gray-600">
-          Thank you for registering. Our team will follow up with next steps shortly.
-        </p>
-        <Link href="/yebs" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gray-900">
-          Back to YEBS <CaretRight size={14} weight="bold" />
-        </Link>
-      </motion.div>
-    );
+    return <SuccessState />;
   }
 
   return (
@@ -148,6 +136,34 @@ export default function RegistrationForm({ type }: { type: RegistrationType }) {
         {status === "loading" ? "Submitting..." : content.submitLabel}
       </button>
     </form>
+  );
+}
+
+function SuccessState() {
+  useEffect(() => {
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ['#eab308', '#000000', '#ffffff', '#fbbf24']
+    });
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="py-12 text-center flex flex-col items-center justify-center"
+    >
+      <CheckCircle weight="fill" className="text-yellow-500 mb-4 h-16 w-16" />
+      <h2 className="text-3xl font-normal text-gray-900 font-[family-name:var(--font-inter-tight)] tracking-tight">Registration received</h2>
+      <p className="mt-3 text-gray-600 max-w-md mx-auto leading-relaxed">
+        Thank you for registering. Our team will follow up with next steps shortly.
+      </p>
+      <Link href="/yebs" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-gray-900 hover:text-yellow-600 transition-colors">
+        Back to YEBS <CaretRight size={14} weight="bold" />
+      </Link>
+    </motion.div>
   );
 }
 

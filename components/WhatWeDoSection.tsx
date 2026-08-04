@@ -49,13 +49,13 @@ export default function WhatWeDoSection() {
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            className={`flex-1 transition-all duration-500 ease-in-out md:flex ${
+            className={`min-w-0 transition-all duration-500 ease-in-out md:flex ${
               hoveredIndex !== null && hoveredIndex !== index ? "md:flex-[0.6]" : ""
             } ${hoveredIndex === index ? "md:flex-[2]" : ""} ${
               hoveredIndex === null ? "md:flex-1" : ""
             }`}
           >
-            <div className="h-[280px] sm:h-[320px] md:h-[500px]">
+            <div className="h-[280px] sm:h-[320px] md:h-[500px] w-full">
               <ServiceCard
                 title={service.title}
                 description={service.description}

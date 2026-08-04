@@ -80,7 +80,7 @@ export default function YebsCallout({ variant = "landing" }: YebsCalloutProps) {
     <section
       id={variant === "landing" ? "yebs" : undefined}
       ref={sectionRef}
-      className={`relative min-h-[100dvh] w-full bg-[url('/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg')] bg-cover bg-center text-white overflow-hidden ${variant === "landing" ? "snap-start" : ""}`}
+      className={`relative flex flex-col min-h-[100dvh] w-full bg-[url('/a-man-and-woman-are-sitting-on-a-couch-while-the-man-works-on-his-laptop-they-are-both-looking-at-the-laptop-while-the-woman-is-leaning-in-towards-the-man-they-are-both-wearing-casual-clothing-and-t-59c81072.jpg')] bg-cover bg-center text-white overflow-hidden ${variant === "landing" ? "snap-start" : ""}`}
     >
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -130,7 +130,7 @@ export default function YebsCallout({ variant = "landing" }: YebsCalloutProps) {
         </div>
       )}
 
-      <div className="relative z-10 w-full h-full flex flex-col justify-end px-8 md:px-12 lg:px-24 pb-16 md:pb-24">
+      <div className="relative z-10 w-full flex-1 flex flex-col justify-end px-8 md:px-12 lg:px-24 pb-16 md:pb-24 pt-32">
         <div className="max-w-3xl">
           {variant === "page" && (
             <motion.div

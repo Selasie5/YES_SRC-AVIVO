@@ -4,11 +4,40 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "@phosphor-icons/react";
-import type { SpeakerProfile } from "../data/speakers";
-import { speakers } from "../data/speakers";
+import type { Speaker } from "../db/schema";
+
+type SpeakerProfile = {
+  id: string;
+  name: string;
+  title: string;
+  bio: string;
+  image: string;
+  topics: string[];
+};
+
+function toProfile(s: Speaker): SpeakerProfile {
+  return {
+    id: s.id,
+    name: s.name,
+    title: s.title,
+    bio: s.bio,
+    image: s.imageUrl,
+    topics: s.topics ?? [],
+  };
+}
 
 export default function YebsSpeakersSection() {
+  const [speakers, setSpeakers] = useState<SpeakerProfile[]>([]);
   const [activeSpeaker, setActiveSpeaker] = useState<SpeakerProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/speakers")
+      .then((res) => res.json())
+      .then((data) => setSpeakers((data.speakers ?? []).map(toProfile)))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = activeSpeaker ? "hidden" : "";
@@ -16,6 +45,18 @@ export default function YebsSpeakersSection() {
       document.body.style.overflow = "";
     };
   }, [activeSpeaker]);
+
+  if (loading) {
+    return (
+      <section id="speakers" className="scroll-mt-32 bg-[#111111] py-24 text-white md:py-32">
+        <div className="mx-auto max-w-7xl px-6">
+          <p className="text-sm text-gray-400">Loading speakers...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (speakers.length === 0) return null;
 
   return (
     <>

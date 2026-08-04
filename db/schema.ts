@@ -41,6 +41,17 @@ export const speakers = pgTable("speakers", {
   title: text("title").notNull(),
   bio: text("bio").notNull(),
   imageUrl: text("image_url").notNull(),
+  topics: jsonb("topics").$type<string[]>(),
+  sortOrder: integer("sort_order").default(0).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const partners = pgTable("partners", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  url: text("url").notNull(),
+  imageUrl: text("image_url"),
+  className: text("class_name"),
   sortOrder: integer("sort_order").default(0).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
@@ -48,3 +59,4 @@ export const speakers = pgTable("speakers", {
 export type Registration = typeof registrations.$inferSelect;
 export type NewRegistration = typeof registrations.$inferInsert;
 export type Speaker = typeof speakers.$inferSelect;
+export type Partner = typeof partners.$inferSelect;

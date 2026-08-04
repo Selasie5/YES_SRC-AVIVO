@@ -4,10 +4,7 @@ import { type ReactNode, useState } from "react";
 import {
   Buildings,
   CaretRight,
-  CheckCircle,
-  GraduationCap,
   List,
-  Medal,
   SignOut,
   SquaresFour,
   UsersThree,
@@ -16,15 +13,18 @@ import {
 
 type AdminShellProps = {
   children: ReactNode;
+  activeTab: string;
+  onNavigate: (tab: string) => void;
   onLogout: () => void;
 };
 
 const navItems = [
-  { label: "Registrations", icon: UsersThree, active: true },
-  { label: "Check-in desk", icon: CheckCircle, active: false },
+  { label: "Registrations", id: "registrations", icon: UsersThree },
+  { label: "Speakers", id: "speakers", icon: UsersThree },
+  { label: "Partners", id: "partners", icon: Buildings },
 ];
 
-function SidebarContent({ onLogout, onNavigate }: { onLogout: () => void; onNavigate?: () => void }) {
+function SidebarContent({ activeTab, onNavigate, onLogout, onMobileClose }: { activeTab: string; onNavigate: (tab: string) => void; onLogout: () => void; onMobileClose?: () => void }) {
   return (
     <>
       <div className="flex flex-col gap-6">
@@ -46,44 +46,26 @@ function SidebarContent({ onLogout, onNavigate }: { onLogout: () => void; onNavi
           <div className="space-y-1">
             {navItems.map((item) => {
               const Icon = item.icon;
+              const isActive = activeTab === item.id;
               return (
-                <div
-                  key={item.label}
-                  onClick={onNavigate}
-                  className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] transition-all duration-150 ${
-                    item.active
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    onNavigate(item.id);
+                    onMobileClose?.();
+                  }}
+                  className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[13px] transition-all duration-150 ${
+                    isActive
                       ? "bg-zinc-200/90 font-medium text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]"
                       : "font-normal text-zinc-500 hover:bg-zinc-200/80 hover:text-black hover:shadow-[inset_0_1px_1px_rgba(0,0,0,0.02)]"
                   }`}
                 >
-                  <Icon className="h-4 w-4 shrink-0" weight={item.active ? "fill" : "regular"} />
+                  <Icon className="h-4 w-4 shrink-0" weight={isActive ? "fill" : "regular"} />
                   <span className="flex-1">{item.label}</span>
-                  {item.active && (
+                  {isActive && (
                     <CaretRight className="h-3.5 w-3.5 shrink-0 text-zinc-400" weight="bold" />
                   )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="space-y-1">
-            <p className="mb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
-              Registration types
-            </p>
-            {[
-              { label: "Delegates", icon: GraduationCap },
-              { label: "Sponsors", icon: Medal },
-              { label: "Partners", icon: Buildings },
-            ].map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-normal text-zinc-500"
-                >
-                  <Icon className="h-4 w-4 shrink-0" />
-                  <span>{item.label}</span>
-                </div>
+                </button>
               );
             })}
           </div>
@@ -94,7 +76,7 @@ function SidebarContent({ onLogout, onNavigate }: { onLogout: () => void; onNavi
         <button
           type="button"
           onClick={() => {
-            onNavigate?.();
+            onMobileClose?.();
             onLogout();
           }}
           className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[13px] font-normal text-zinc-500 transition-all duration-150 hover:bg-zinc-200/80 hover:text-black hover:shadow-[inset_0_1px_1px_rgba(0,0,0,0.02)]"
@@ -117,7 +99,7 @@ function SidebarContent({ onLogout, onNavigate }: { onLogout: () => void; onNavi
   );
 }
 
-export default function AdminShell({ children, onLogout }: AdminShellProps) {
+export default function AdminShell({ children, activeTab, onNavigate, onLogout }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -136,7 +118,7 @@ export default function AdminShell({ children, onLogout }: AdminShellProps) {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <SidebarContent onLogout={onLogout} onNavigate={() => setSidebarOpen(false)} />
+        <SidebarContent activeTab={activeTab} onNavigate={onNavigate} onLogout={onLogout} onMobileClose={() => setSidebarOpen(false)} />
       </aside>
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-white">
@@ -153,7 +135,7 @@ export default function AdminShell({ children, onLogout }: AdminShellProps) {
             <div className="flex min-w-0 items-center gap-2 truncate text-[12px] font-normal text-zinc-400">
               <span className="hidden sm:inline">Afrovivo</span>
               <CaretRight className="hidden h-3.5 w-3.5 shrink-0 text-zinc-300 sm:block" weight="bold" />
-              <span className="truncate font-medium text-zinc-800">Registrations</span>
+              <span className="truncate font-medium text-zinc-800 capitalize">{activeTab}</span>
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2 text-xs text-zinc-500">
