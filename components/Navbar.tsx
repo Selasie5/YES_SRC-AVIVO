@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CaretRight, X, List } from "@phosphor-icons/react";
@@ -10,6 +11,7 @@ import { navigation } from "../data/navigation";
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isYebs = pathname.startsWith("/yebs");
   const isAdmin = pathname.startsWith("/admin");
   const [isScrolled, setIsScrolled] = useState(pathname !== "/");
   const [isHidden, setIsHidden] = useState(false);
@@ -58,11 +60,14 @@ export default function Navbar() {
 
   if (isAdmin) return null;
 
+  const logoSrc = isYebs ? "/yebs-logo.jpeg" : "/afrovivo.jpeg";
+  const logoAlt = isYebs ? "YEBS logo" : "Afrovivo logo";
+
   return (
     <>
       {isBannerVisible && (
         <header className="fixed top-0 left-0 right-0 w-full z-50">
-          <div className="relative flex w-full items-center justify-center bg-[#1a1a1a] px-10 py-1.5 sm:py-2.5 text-xs font-[family-name:var(--font-inter-tight)] text-white sm:text-sm">
+          <div className="relative flex w-full items-center justify-center bg-[#1a1a1a] px-10 py-1.5 sm:py-2.5 text-xs font-(family-name:--font-inter-tight) text-white sm:text-sm">
             <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center">
               <span className="font-semibold text-[#ff5c00]">New</span>
               <span className="hidden text-gray-600 sm:inline">|</span>
@@ -93,7 +98,7 @@ export default function Navbar() {
       <header
         className={`fixed left-0 right-0 w-full z-40 transition-transform duration-300 ${
           isHidden ? "-translate-y-full" : "translate-y-0"
-        } ${isBannerVisible ? "top-[40px]" : "top-0"}`}
+        } ${isBannerVisible ? "top-10" : "top-0"}`}
       >
         <div
           className={`w-full transition-colors duration-300 ${
@@ -105,14 +110,15 @@ export default function Navbar() {
               isScrolled ? "flex justify-between lg:grid lg:grid-cols-3 items-center" : "flex items-center justify-between"
             }`}
           >
-            <Link href="/" className="flex items-center gap-2">
-              <div
-                className={`font-bold text-2xl tracking-tight font-[family-name:var(--font-inter-tight)] ${
-                  isScrolled ? "text-black" : "text-white"
-                }`}
-              >
-                Afrovivo
-              </div>
+            <Link href={isYebs ? "/yebs" : "/"} className="flex items-center gap-2">
+              <Image
+                src={logoSrc}
+                alt={logoAlt}
+                width={170}
+                height={56}
+                priority
+                className={`h-9 w-auto object-contain md:h-11 ${isYebs ? "max-w-37.5" : "max-w-42.5"}`}
+              />
             </Link>
 
             <NavMegaMenu activeMenu={activeMenu} onActivate={setActiveMenu} isScrolled={isScrolled} />
@@ -141,10 +147,16 @@ export default function Navbar() {
       </header>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-white md:hidden">
+        <div className="fixed inset-0 z-60 flex flex-col bg-white md:hidden">
           <div className="flex items-center justify-between px-6 h-14 border-b border-gray-100 shrink-0">
-            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="font-bold text-2xl tracking-tight font-[family-name:var(--font-inter-tight)] text-black">
-              Afrovivo
+            <Link href={isYebs ? "/yebs" : "/"} onClick={() => setIsMobileMenuOpen(false)} className="flex items-center">
+              <Image
+                src={logoSrc}
+                alt={logoAlt}
+                width={150}
+                height={50}
+                className="h-8 w-auto object-contain"
+              />
             </Link>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
@@ -189,7 +201,7 @@ function MobileMenuItem({ item, onClose }: { item: any; onClose: () => void }) {
       <Link
         href={item.href}
         onClick={onClose}
-        className="block py-3 text-xl font-semibold text-gray-900 font-[family-name:var(--font-inter-tight)]"
+        className="block py-3 text-xl font-semibold text-gray-900 font-(family-name:--font-inter-tight)"
       >
         {item.label}
       </Link>
@@ -200,7 +212,7 @@ function MobileMenuItem({ item, onClose }: { item: any; onClose: () => void }) {
     <div className="flex flex-col">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between py-3 text-xl font-semibold text-gray-900 font-[family-name:var(--font-inter-tight)] text-left"
+        className="flex items-center justify-between py-3 text-xl font-semibold text-gray-900 font-(family-name:--font-inter-tight) text-left"
       >
         {item.label}
         <CaretRight 
@@ -211,7 +223,7 @@ function MobileMenuItem({ item, onClose }: { item: any; onClose: () => void }) {
       </button>
       <div 
         className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+          isOpen ? "max-h-250 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <ul className="mt-1 mb-3 space-y-1 pl-4 border-l-2 border-gray-100">

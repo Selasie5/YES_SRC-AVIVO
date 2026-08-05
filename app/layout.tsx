@@ -14,6 +14,9 @@ const interTight = Inter_Tight({
 export const metadata: Metadata = {
   title: "Afrovivo International | Talent, Communications & Business Development for Africa's Energy Sector",
   description: "Afrovivo connects industry, talent and opportunity across Africa's energy and natural resources sector — through workforce development, strategic communications, and business development.",
+  icons: {
+    icon: "/afrovivo.jpeg",
+  },
 };
 
 export default function RootLayout({
