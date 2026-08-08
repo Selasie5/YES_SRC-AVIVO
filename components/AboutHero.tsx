@@ -6,7 +6,7 @@ import { CaretRight } from "@phosphor-icons/react";
 
 export default function AboutHero() {
   return (
-    <section className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-[url('/hero-bg.jpg')] bg-cover bg-center px-6 pb-24 pt-32 text-center text-white">
+    <section className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-[url('/pexels-umaraffan499-87236.jpg')] bg-cover bg-center px-6 pb-24 pt-32 text-center text-white">
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/70 via-black/55 to-black/70" />
 
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center">
