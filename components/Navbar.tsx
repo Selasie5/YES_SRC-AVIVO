@@ -11,9 +11,11 @@ import { navigation } from "../data/navigation";
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isAbout = pathname === "/about";
+  const isTransparentHero = isHome || isAbout;
   const isYebs = pathname.startsWith("/yebs");
   const isAdmin = pathname.startsWith("/admin");
-  const [isScrolled, setIsScrolled] = useState(pathname !== "/");
+  const [isScrolled, setIsScrolled] = useState(!isTransparentHero);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
@@ -28,12 +30,12 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
-    if (!isHome) {
+    if (!isTransparentHero) {
       setIsScrolled(true);
     } else if (window.scrollY <= 20) {
       setIsScrolled(false);
     }
-  }, [isHome]);
+  }, [isTransparentHero]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +43,7 @@ export default function Navbar() {
 
       if (currentScrollY > 20) {
         setIsScrolled(true);
-      } else if (isHome) {
+      } else if (isTransparentHero) {
         setIsScrolled(false);
       }
 
@@ -56,7 +58,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, isHome]);
+  }, [lastScrollY, isTransparentHero]);
 
   if (isAdmin) return null;
 
